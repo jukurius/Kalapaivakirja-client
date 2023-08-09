@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "value": "Punainen"
+    },
+    {
+        "id": 2,
+        "value": "Vihreä"
+    },
+    {
+        "id": 3,
+        "value": "Sininen"
+    },
+    {
+        "id": 4,
+        "value": "Oranssi"
+    },
+    {
+        "id": 5,
+        "value": "Keltainen"
+    },
+    {
+        "id": 6,
+        "value": "Violetti"
+    },
+    {
+        "id": 7,
+        "value": "Musta"
+    },
+    {
+        "id": 8,
+        "value": "Hopea"
+    },
+    {
+        "id": 9,
+        "value": "Kultainen "
+    },
+    {
+        "id": 10,
+        "value": "Pinkki"
+    }
+]

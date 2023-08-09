@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "value": "Heittokalastus"
+    },
+    {
+        "id": 2,
+        "value": "Onginta"
+    },
+    {
+        "id": 3,
+        "value": "Pilkintä"
+    },
+    {
+        "id": 4,
+        "value": "Perhokalastus"
+    },
+    {
+        "id": 5,
+        "value": "Tuulastus"
+    },
+    {
+        "id": 6,
+        "value": "Uistelu"
+    }
+]
