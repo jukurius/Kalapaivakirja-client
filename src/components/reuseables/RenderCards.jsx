@@ -8,9 +8,9 @@ function RenderCards(props) {
       <Link
         to={`/saaliit/${item.id}`}
         key={item.id}
-        className="flex flex-col justify-end min-w-full bg-custom-dark-blue border border-gray-200 rounded-md shadow objec-cover h-96 relative"
+        className="flex flex-col justify-end min-w-full bg-custom-dark-blue border border-gray-200 rounded-md shadow objec-cover h-96"
         style={{
-          backgroundImage: `linear-gradient(180deg, transparent, black), url("${item.img}")`,
+          backgroundImage: `linear-gradient(180deg, transparent, black), url("${item?.images?.length > 0 ? item.images[0] : null}")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -30,7 +30,7 @@ function RenderCards(props) {
 
   return (
     <InfiniteScroll
-      className="grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      className="grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
       dataLength={data.length}
       next={props.fetchMorePosts}
       hasMore={props.hasMore}

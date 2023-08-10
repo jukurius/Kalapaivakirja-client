@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Hero from "../components/home/Hero";
-import LatestPosts from "../components/home/LatestPosts";
 import axios from "axios";
 import RenderCards from "../components/reuseables/RenderCards";
 
@@ -22,6 +21,9 @@ function Home() {
   return (
     <div>
       <Hero />
+      <div className="container max-w-7xl mx-auto px-5">
+        <h2 className="text-4xl font-bold text-custom-dark-blue">Uusimmat kalasaaliit</h2>
+      </div>
       <div className="container px-5 max-w-7xl mx-auto py-20">
         <RenderCards items={latestPosts} />
       </div>

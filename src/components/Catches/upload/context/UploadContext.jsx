@@ -25,11 +25,10 @@ const UploadContextProvider = ({ children }) => {
         fishingStyle: "",
     });
 
-    const requiredInputsForSubmit = {specie: data.specie, specieWeight: data.specieWeight, fishingStyle: data.fishingStyle, lure: data.lure, ...(data.isMultiColor === 1 && {lureColorTwo: data.lureColorTwo}) ,lureColorOne: data.lureColorOne, locationProvince: data.locationProvince, locationCity: data.locationCity, images: data.images}
+    const requiredInputsForSubmit = {specie: data.specie, specieWeight: data.specieWeight, fishingStyle: data.fishingStyle, lure: data.lure, ...(data.isMultiColor === 1 && {lureColorTwo: data.lureColorTwo}) ,lureColorOne: data.lureColorOne, locationProvince: data.locationProvince, locationCity: data.locationCity, images: data.images.length > 0 ? true : false}
 
     const requiredInputsPage1 = {specie: data.specie, specieWeight: data.specieWeight, fishingStyle: data.fishingStyle, lure: data.lure, ...(data.isMultiColor === 1 && {lureColorTwo: data.lureColorTwo}) ,lureColorOne: data.lureColorOne};
     const requiredInputsPage2 = {locationProvince: data.locationProvince, locationCity: data.locationCity};
-    const requiredInputsPage3 = {images: data.images};
 
     const canSubmit = [...Object.values(requiredInputsForSubmit)].every(Boolean) && page === Object.keys(title).length - 1
 

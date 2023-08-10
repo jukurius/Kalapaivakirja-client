@@ -12,10 +12,11 @@ export default {
     },
     extend: {
       colors: {
-        'custom-dark-blue': '#4E4FEB',
+        'custom-dark-blue': '#3C50E0',
         'custom-light-blue': '#068FFF',
         'custom-light': '#EEEEEE',
         'custom-light-two': '#e9ecef',
+        'custom-light-gray': '#F1F5F9'
       },
       animation: {
         slideToRight: 'slideToRight 0.5s cubic-bezier(0.77,0.2,0.05,1.0)',

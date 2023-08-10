@@ -5,8 +5,8 @@ const LURES_URL = "/lures";
 import axios from "../../../../api/axios";
 import UploadDropdown from "../inputs/UploadDropdown";
 import UploadRadio from "../inputs/UploadRadio";
-import colorJSON from "../colors.json"
-import fishingStyleJSON from "../fishingStyle.json"
+import colorJSON from "../../../../data/colors.json";
+import fishingStyleJSON from "../../../../data/fishingStyle.json"
 
 function Page1() {
   const [speciesData, setSpeciesData] = useState([]);
@@ -58,7 +58,7 @@ function Page1() {
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="weight"
         >
-          Saaliin paino *
+          Saaliin paino <span className="text-gray-500">(kg)</span> *
         </label>
         <input
           className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -74,7 +74,7 @@ function Page1() {
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="length"
         >
-          Saaliin pituus
+          Saaliin pituus <span className="text-gray-500">(cm)</span> 
         </label>
         <input
           className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -102,7 +102,7 @@ function Page1() {
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="lureLength"
         >
-          Vieheen pituus
+          Vieheen pituus <span className="text-gray-500">(cm)</span> 
         </label>
         <input
           className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"

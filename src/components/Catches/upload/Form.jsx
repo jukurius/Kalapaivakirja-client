@@ -2,6 +2,7 @@ import React from "react";
 import useUploadContext from "../../../hooks/useUploadContext";
 import FormInputs from "./FormInputs";
 import { useNavigate } from "react-router-dom";
+import ProgressBar from "./formPages/ProgressBar";
 
 function Form() {
   const {
@@ -25,24 +26,37 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(JSON.stringify(data));
+    // lets filter empty key value pairs off
+    const filteredObject = Object.keys(data).reduce((acc, key) => {
+      if (data[key] !== "") {
+        acc[key] = data[key];
+      }
+      return acc;
+    }, {});
+    console.log(JSON.stringify(filteredObject));
+    
+  };
+
+  const handleCancel = (e) => {
+    e.preventDefault();
+    navigate(-1);
   };
 
   return (
     <div className="flex justify-center items-center h-auto mt-10 container max-w-3xl mx-auto">
       <form className=" w-screen bg-white p-8 shadow-md">
+        <div className="mb-8">
+          <ProgressBar />
+        </div>
         <header>
           <h2 className="text-2xl font-bold mb-4 flex items-center">
             {title[page]}
           </h2>
         </header>
-        <div className="mb-4 font-semibold">
-          <span className="text-xl">{page + 1}/3</span>
-        </div>
         <div>
           <FormInputs />
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between mt-10">
           <div className="flex gap-2">
             <button
               type="button"
@@ -77,6 +91,7 @@ function Form() {
                   ? "opacity-50 cursor-not-allowed"
                   : "hover:bg-blue-700"
               }}`}
+              onClick={(e) => handleSubmit(e)}
               disabled={!canSubmit}
             >
               Lähetä
@@ -86,6 +101,7 @@ function Form() {
             <button
               type="submit"
               className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
+              onClick={(e) => handleCancel(e)}
             >
               Peruuta
             </button>

@@ -58,7 +58,7 @@ function AllPosts() {
 
   return (
     <div className="container px-5 max-w-7xl mx-auto">
-      <h2 className="text-2xl lg:text-4xl font-bold pt-10 text-custom-light-blue">
+      <h2 className="text-2xl lg:text-4xl font-bold pt-20 text-gray-600">
         Selaa käyttäjien kalasaaliita
       </h2>
       <div className="rounded-md mt-4 lg:mt-8 mb-5">
