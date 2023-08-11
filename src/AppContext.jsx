@@ -5,6 +5,7 @@ import axios from './api/axios';
 
 const AppContextProvider = ({ children }) => {
     const [auth, setAuth] = useState({});
+    const [persist, setPersist] = useState(JSON.parse(localStorage.getItem("persist")) || false);
     const [filterOptions, setFilterOptions] = useState([
       {
         filterType: "species_name",
@@ -31,7 +32,7 @@ const AppContextProvider = ({ children }) => {
     };
   
     return (
-      <AppContext.Provider value={{ auth, setAuth, filterOptions, setFilterOptions, handleLogout }}>
+      <AppContext.Provider value={{ auth, setAuth, filterOptions, setFilterOptions, handleLogout, persist, setPersist }}>
         {children}
       </AppContext.Provider>
     );

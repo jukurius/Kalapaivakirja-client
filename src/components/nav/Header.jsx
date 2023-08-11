@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
-import { useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IconLogin } from "@tabler/icons-react";
 import { IconChevronDown } from "@tabler/icons-react";
 import { AppContext } from "../../AppContext";
-import axios from "../../api/axios";
 import { IconMenu2 } from "@tabler/icons-react";
 
 
 const Header = (props) => {
   const { auth, setAuth } = useContext(AppContext);
+  console.log("header", auth);
 
   const toggleNavbar = () => {
     props.setIsOpen(!props.isOpen);

@@ -11,13 +11,15 @@ import { IconUsersGroup } from "@tabler/icons-react";
 import { IconUpload } from "@tabler/icons-react";
 import { IconCalendar } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import useLogout from "../../hooks/useLogout"
 
 const Menu = () => {
-  const { handleLogout, auth } = useContext(AppContext);
+  const { auth } = useContext(AppContext);
   const navigate = useNavigate();
+  const logout = useLogout();
 
-  const handleLogoutContext = () => {
-    handleLogout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/");
   };
 
@@ -101,7 +103,7 @@ const Menu = () => {
             </Link>
             <button
               className="text-lg flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
-              onClick={handleLogoutContext}
+              onClick={handleLogout}
             >
               <IconLogout />
               Kirjaudu ulos

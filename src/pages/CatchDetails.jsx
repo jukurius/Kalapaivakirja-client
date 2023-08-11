@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import { AppContext } from "../AppContext";
 
 function CatchDetails() {
   const params = useParams();
@@ -10,6 +11,7 @@ function CatchDetails() {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const location = useLocation();
+  const { setAuth } = useContext(AppContext);
 
   useEffect(() => {
     let isMounted = true;
@@ -18,13 +20,14 @@ function CatchDetails() {
     const getPost = async () => {
       try {
         const response = await axiosPrivate.get("/singlePost", {
-          signal: controller.signal,
+          // signal: controller.signal,
           params: { id: params.id },
         });
         console.log(response.data);
         isMounted && setPost(response.data);
       } catch (err) {
         console.error(err);
+        setAuth({});
         navigate("/login", { state: { from: location }, replace: true });
       }
     };
@@ -42,7 +45,7 @@ function CatchDetails() {
           <div className="flex flex-wrap">
             <div className="w-full md:w-1/2 p-4">
               <img
-                src={post[0]?.catch_img}
+                src={post[0]?.images?.length && post[0].images[0]?.image_url}
                 alt="Product Image"
                 className="w-full h-auto"
               />
