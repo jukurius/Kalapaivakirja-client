@@ -33,6 +33,21 @@ function Form() {
       return acc;
     }, {});
     console.log(JSON.stringify(filteredObject));
+
+    const uploadCatch = async () => {
+      try {
+        const response = await axiosPrivate.get("/singlePost", {
+          params: { id: params?.id },
+        });
+        console.log(response.data);
+        isMounted && setPost(response.data);
+      } catch (err) {
+        console.error(err);
+        setAuth({});
+        navigate("/login", { state: { from: location }, replace: true });
+      }
+    };
+    uploadCatch();
     
   };
 
