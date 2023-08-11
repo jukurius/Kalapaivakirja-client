@@ -43,7 +43,7 @@ function Form() {
   };
 
   return (
-    <div className="flex justify-center items-center h-auto mt-10 container max-w-3xl mx-auto">
+    <div className="flex justify-center items-center h-auto my-10 container max-w-3xl mx-auto">
       <form className=" w-screen bg-white p-8 shadow-md">
         <div className="mb-8">
           <ProgressBar />

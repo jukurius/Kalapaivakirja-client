@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { IconLogin } from "@tabler/icons-react";
-import { Outlet, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";

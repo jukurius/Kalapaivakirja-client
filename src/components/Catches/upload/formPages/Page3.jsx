@@ -23,10 +23,10 @@ const ImageBox = ({ image, onImageChange, onDelete }) => {
       </div>
       {image && (
         <button
-          className="absolute top-2 right-2 bg-white rounded"
+          className="absolute top-5 right-5"
           onClick={onDelete}
         >
-          <IconX size={40} />
+          <IconX className="bg-white rounded" size={34} />
         </button>
       )}
     </div>
@@ -57,7 +57,6 @@ const Page3 = () => {
     newImages[index] = "";
     setImages(newImages);
   };
-  console.log(data)
 
   return (
     <div className="">

@@ -15,7 +15,7 @@ const Header = (props) => {
   };
 
   return (
-      <nav className="h-20 relative flex items-center justify-between lg:justify-end px-5 md:px-10 shadow-md">
+      <nav className="h-20 relative z-50 flex items-center justify-between lg:justify-end px-5 md:px-10 shadow-md">
         <button onClick={toggleNavbar} className="lg:hidden"><IconMenu2 /></button>
         {auth?.user ? (
           <div className="user flex items-center gap-5">

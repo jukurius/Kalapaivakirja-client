@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "value": "Aurinkoinen"
+    },
+    {
+        "id": 2,
+        "value": "Pilvinen"
+    },
+    {
+        "id": 3,
+        "value": "Poutainen"
+    },
+    {
+        "id": 4,
+        "value": "Sateinen"
+    },
+    {
+        "id": 5,
+        "value": "Lumisade"
+    },
+    {
+        "id": 6,
+        "value": "Räntäsade"
+    },
+    {
+        "id": 7,
+        "value": "Tuulinen"
+    },
+    {
+        "id": 8,
+        "value": "Sumuinen"
+    },
+    {
+        "id": 8,
+        "value": "Myrskyinen"
+    },
+    {
+        "id": 9,
+        "value": "Ukkonen"
+    }
+]
