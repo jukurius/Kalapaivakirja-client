@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Hero from "../components/home/Hero";
 import axios from "axios";
 import RenderCards from "../components/reuseables/RenderCards";

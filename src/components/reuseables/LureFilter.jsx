@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import RenderCheckBoxes from "./RenderCheckBoxes";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const LureFilter = (props) => {
   const [lures, setLures] = useState({});
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggleDropdown = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
   const handleOptionChange = (optionValue) => {
     if (props.filterOptions[2]?.filterArr?.includes(optionValue)) {
@@ -78,6 +79,11 @@ const LureFilter = (props) => {
       </div>
     </div>
   );
+};
+
+LureFilter.propTypes = {
+  filterOptions: PropTypes.arrayOf(PropTypes.object),
+  setFilterOptions: PropTypes.func
 };
 
 export default LureFilter;

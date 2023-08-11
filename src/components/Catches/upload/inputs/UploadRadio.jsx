@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 function UploadRadio(props) {
   const handleOptionChange = (event) => {
@@ -41,5 +41,10 @@ function UploadRadio(props) {
     </div>
   );
 }
+
+UploadRadio.propTypes = {
+  value: PropTypes.object,
+  setValue: PropTypes.func.isRequired,
+};
 
 export default UploadRadio;

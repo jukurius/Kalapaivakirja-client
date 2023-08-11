@@ -1,5 +1,5 @@
-import React from "react";
 import { IconX } from "@tabler/icons-react";
+import PropTypes from 'prop-types';
 
 function SelectedFilters(props) {
   var selectedFilters = [];
@@ -37,5 +37,10 @@ function SelectedFilters(props) {
     </div>
   );
 }
+
+SelectedFilters.propTypes = {
+  filterOptions: PropTypes.arrayOf(PropTypes.object),
+  setFilterOptions: PropTypes.func
+};
 
 export default SelectedFilters;

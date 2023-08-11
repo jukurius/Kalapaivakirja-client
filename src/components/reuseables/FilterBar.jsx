@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Search from "./Search";
 import { IconX } from "@tabler/icons-react";
 import { IconAdjustments } from "@tabler/icons-react";
@@ -6,6 +6,7 @@ import SpeciesFilter from "./SpeciesFilter";
 import LureFilter from "./LureFilter";
 import LocationFilter from "./locationFilter";
 import SelectedFilters from "./SelectedFilters";
+import PropTypes from 'prop-types';
 
 const FilterBar = (props) => {
   const [isMobileExpanded, setMobileExpanded] = useState(false);
@@ -106,6 +107,11 @@ const FilterBar = (props) => {
       </div>
     </>
   );
+};
+
+FilterBar.propTypes = {
+  filterOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setFilterOptions: PropTypes.func.isRequired,
 };
 
 export default FilterBar;

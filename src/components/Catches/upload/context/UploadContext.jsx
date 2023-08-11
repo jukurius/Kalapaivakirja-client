@@ -1,5 +1,6 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 const UploadContext = createContext();
+import PropTypes from "prop-types";
 
 const UploadContextProvider = ({ children }) => {
   const title = {
@@ -28,7 +29,7 @@ const UploadContextProvider = ({ children }) => {
     airTemp: "",
     waterTemp: "",
     wind: "",
-    catchDate: ""
+    catchDate: "",
   });
 
   const requiredInputsForSubmit = {
@@ -105,6 +106,10 @@ const UploadContextProvider = ({ children }) => {
       {children}
     </UploadContext.Provider>
   );
+};
+
+UploadContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export { UploadContext, UploadContextProvider };

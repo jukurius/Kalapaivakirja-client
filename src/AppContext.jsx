@@ -1,7 +1,8 @@
-import React, { createContext, useState } from 'react'; 
+import { createContext, useState } from 'react'; 
 const AppContext = createContext();
 const LOGOUT_URL = "/logout";
 import axios from './api/axios';
+import PropTypes from 'prop-types';
 
 const AppContextProvider = ({ children }) => {
     const [auth, setAuth] = useState({});
@@ -33,9 +34,13 @@ const AppContextProvider = ({ children }) => {
   
     return (
       <AppContext.Provider value={{ auth, setAuth, filterOptions, setFilterOptions, handleLogout, persist, setPersist }}>
-        {children}
+        { children }
       </AppContext.Provider>
     );
+  };
+
+  AppContextProvider.propTypes = {
+    children: PropTypes.node.isRequired,
   };
 
   export { AppContext, AppContextProvider };

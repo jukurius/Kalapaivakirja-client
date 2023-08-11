@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import UploadDropdown from "../inputs/UploadDropdown";
 const LOCATION_URL = "/locations";
 const CITIES_URL = "/citys";
@@ -41,6 +41,7 @@ function Page2() {
     };
     setCurrentDateTime();
     fetchLocations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -57,10 +58,12 @@ function Page2() {
     };
     fetchCities();
     setData({ ...data, locationCity: "" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.locationProvince?.id]);
 
   useEffect(() => {
     setData({ ...data, catchDate: currentDatetime });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDatetime])
 
 

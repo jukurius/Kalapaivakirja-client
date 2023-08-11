@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { IconX } from "@tabler/icons-react";
 import { IconPlus } from "@tabler/icons-react";
 import useUploadContext from "../../../../hooks/useUploadContext";
+import PropTypes from 'prop-types';
 
 const ImageBox = ({ image, onImageChange, onDelete }) => {
   const backgroundImageStyle = image
@@ -44,6 +45,7 @@ const Page3 = () => {
       ...data,
       images: filteredArr
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images])
 
   const handleImageChange = (index, event) => {
@@ -73,6 +75,18 @@ const Page3 = () => {
       </div>
     </div>
   );
+};
+
+Page3.propTypes = {
+  image: PropTypes.string,
+  onImageChange: PropTypes.func,
+  onDelete: PropTypes.func,
+};
+
+ImageBox.propTypes = {
+  image: PropTypes.string,
+  onImageChange: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default Page3;

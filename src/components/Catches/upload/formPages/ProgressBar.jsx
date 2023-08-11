@@ -1,4 +1,3 @@
-import React from "react";
 import useUploadContext from "../../../../hooks/useUploadContext";
 
 const ProgressBar = () => {

@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
@@ -21,7 +20,7 @@ function CatchDetails() {
       try {
         const response = await axiosPrivate.get("/singlePost", {
           // signal: controller.signal,
-          params: { id: params.id },
+          params: { id: params?.id },
         });
         console.log(response.data);
         isMounted && setPost(response.data);
@@ -36,6 +35,7 @@ function CatchDetails() {
       isMounted = false;
       controller.abort();
     };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

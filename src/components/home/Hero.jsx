@@ -1,6 +1,5 @@
-import React from "react";
 import fisher from "../../assets/hero-fisher.png";
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (

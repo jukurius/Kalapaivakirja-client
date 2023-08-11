@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import FilterBar from "../reuseables/FilterBar";
 import { AppContext } from "../../AppContext";
 import NoCatchesFound from "../reuseables/NoCatchesFound";
 import RenderCards from "../reuseables/RenderCards";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { Outlet, Link } from "react-router-dom";
 
 function AllPosts() {
   const [allPosts, setAllPosts] = useState([]);
@@ -43,17 +41,20 @@ function AllPosts() {
 
   useEffect(() => {
     fetchMorePosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setPage(1);
     clearArray();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterOptions]);
 
   useEffect(() => {
     if (allPosts.length === 0) {
       fetchMorePosts();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allPosts]);
 
   return (

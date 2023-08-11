@@ -1,4 +1,3 @@
-import React from "react";
 import useUploadContext from "../../../hooks/useUploadContext";
 import FormInputs from "./FormInputs";
 import { useNavigate } from "react-router-dom";

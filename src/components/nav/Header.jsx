@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { IconLogin } from "@tabler/icons-react";
 import { IconChevronDown } from "@tabler/icons-react";
 import { AppContext } from "../../AppContext";
 import { IconMenu2 } from "@tabler/icons-react";
-
+import PropTypes from 'prop-types';
 
 const Header = (props) => {
-  const { auth, setAuth } = useContext(AppContext);
+  const { auth } = useContext(AppContext);
   console.log("header", auth);
 
   const toggleNavbar = () => {
@@ -33,6 +33,11 @@ const Header = (props) => {
         )}
       </nav>
   );
+};
+
+Header.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.bool.isRequired
 };
 
 export default Header;

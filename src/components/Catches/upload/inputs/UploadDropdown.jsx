@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import PropTypes from "prop-types";
 
 function UploadDropdown(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,5 +69,12 @@ function UploadDropdown(props) {
     </div>
   );
 }
+
+UploadDropdown.propTypes = {
+  identifier: PropTypes.string,
+  setValue: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  data: PropTypes.func
+};
 
 export default UploadDropdown;

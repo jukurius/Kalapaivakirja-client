@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import RenderCheckBoxes from "./RenderCheckBoxes";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const SpeciesFilter = (props) => {
   const [species, setSpecies] = useState({});
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggleDropdown = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
   const handleOptionChange = (optionValue) => {
     if (props.filterOptions[0]?.filterArr?.includes(optionValue)) {
@@ -80,6 +81,11 @@ const SpeciesFilter = (props) => {
       </div>
     </div>
   );
+};
+
+SpeciesFilter.propTypes = {
+  filterOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setFilterOptions: PropTypes.func.isRequired,
 };
 
 export default SpeciesFilter;

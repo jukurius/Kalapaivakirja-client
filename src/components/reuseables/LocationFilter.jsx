@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import RenderCheckBoxes from "./RenderCheckBoxes";
 import axios from "axios";
+import PropTypes from "prop-types"
 
 const LocationFilter = (props) => {
   const [locations, setLocations] = useState({});
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleOptionChange = (optionValue) => {
     if (props.filterOptions[1]?.filterArr?.includes(optionValue)) {
@@ -81,5 +77,11 @@ const LocationFilter = (props) => {
     </div>
   );
 };
+
+LocationFilter.propTypes = {
+  filterOptions: PropTypes.arrayOf(PropTypes.object),
+  setFilterOptions: PropTypes.func
+};
+
 
 export default LocationFilter;

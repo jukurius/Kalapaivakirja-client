@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 function RenderCheckBoxes(props) {
   var options = [];
@@ -29,5 +29,11 @@ function RenderCheckBoxes(props) {
 
   return <>{options}</>;
 }
+
+RenderCheckBoxes.propTypes = {
+  data: PropTypes.object.isRequired,
+  selectedOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleOptionChange: PropTypes.func.isRequired,
+};
 
 export default RenderCheckBoxes;

@@ -1,5 +1,5 @@
 import useUploadContext from "../../../../hooks/useUploadContext";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 const SPECIES_URL = "/species";
 const LURES_URL = "/lures";
 import axios from "../../../../api/axios";

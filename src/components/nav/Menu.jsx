@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { IconHome } from "@tabler/icons-react";
 import { IconFishHook } from "@tabler/icons-react";

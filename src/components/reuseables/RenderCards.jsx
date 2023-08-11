@@ -1,6 +1,6 @@
-import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 function RenderCards(props) {
   const data = props.items.map((item) => {
@@ -40,5 +40,11 @@ function RenderCards(props) {
     </InfiniteScroll>
   );
 }
+
+RenderCards.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchMorePosts: PropTypes.func,
+  hasMore: PropTypes.bool,
+};
 
 export default RenderCards;
