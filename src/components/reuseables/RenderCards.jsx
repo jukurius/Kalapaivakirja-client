@@ -7,7 +7,7 @@ function RenderCards(props) {
       <Link
         to={`/saaliit/${item.id}`}
         key={item.id}
-        className="flex flex-col justify-end min-w-full bg-custom-dark-blue border border-gray-200 rounded-md shadow objec-cover h-96"
+        className="flex flex-col justify-end w-full bg-custom-dark-blue border border-gray-200 rounded-md shadow objec-cover h-96"
         style={{
           backgroundImage: `linear-gradient(180deg, transparent, black), url("${item?.images?.length > 0 ? item.images[0] : null}")`,
           backgroundSize: "cover",

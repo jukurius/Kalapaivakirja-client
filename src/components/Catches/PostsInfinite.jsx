@@ -47,7 +47,7 @@ const Example1 = () => {
     })
 
     return (
-        <div className="container px-5 max-w-7xl mx-auto">
+        <div>
             <h2 className="text-2xl lg:text-4xl font-bold pt-20 text-gray-600">
                 Selaa käyttäjien kalasaaliita
             </h2>

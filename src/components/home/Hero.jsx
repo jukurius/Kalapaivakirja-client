@@ -9,7 +9,7 @@ function Hero() {
           <img
             src={fisher}
             alt="hero-fisher"
-            className="max-w-xs lg:max-w-sm"
+            className="max-w-xs lg:w-96"
           />
         </div>
         <div className="max-w-lg flex flex-col gap-10 align-center justify-center">

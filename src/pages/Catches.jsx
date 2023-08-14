@@ -1,10 +1,8 @@
-// import AllPosts from '../components/Catches/AllCatches'
 import PostsInfinite from '../components/Catches/PostsInfinite'
 
 function Catches() {
   return (
-    <div>
-      {/* <AllPosts /> */}
+    <div className='container max-w-7xl mx-auto px-5'>
       <PostsInfinite />
     </div>
   )
