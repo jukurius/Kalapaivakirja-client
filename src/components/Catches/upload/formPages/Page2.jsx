@@ -21,7 +21,6 @@ function Page2() {
       try {
         const res = await axios.get(LOCATION_URL);
         const data = await res.data;
-        console.log(data);
         setLocationData(data);
       } catch (error) {
         console.log(error);
@@ -48,7 +47,7 @@ function Page2() {
     const fetchCities = async () => {
       try {
         const res = await axios.get(CITIES_URL, {
-          params: { locationCode: data?.locationProvince?.id },
+          params: { locationCode: data?.locationId },
         });
         const resData = await res.data;
         setCitiesData(resData);
@@ -59,13 +58,14 @@ function Page2() {
     fetchCities();
     setData({ ...data, locationCity: "" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.locationProvince?.id]);
+  }, [data?.locationProvince]); 
 
   useEffect(() => {
     setData({ ...data, catchDate: currentDatetime });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDatetime])
 
+  console.log(citiesData);
 
   return (
     <>
@@ -86,7 +86,7 @@ function Page2() {
               setValue={setData}
             />
           </div>
-          {data?.locationProvince?.value ? (
+          {data?.locationProvince ? (
             <div className="mb-4">
               <label
                 htmlFor="specie"

@@ -84,7 +84,7 @@ const SpeciesFilter = (props) => {
 };
 
 SpeciesFilter.propTypes = {
-  filterOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filterOptions: PropTypes.array.isRequired,
   setFilterOptions: PropTypes.func.isRequired,
 };
 

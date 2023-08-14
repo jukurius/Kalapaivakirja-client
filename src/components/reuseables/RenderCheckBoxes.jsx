@@ -32,7 +32,7 @@ function RenderCheckBoxes(props) {
 
 RenderCheckBoxes.propTypes = {
   data: PropTypes.object.isRequired,
-  selectedOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedOptions: PropTypes.object.isRequired,
   handleOptionChange: PropTypes.func.isRequired,
 };
 

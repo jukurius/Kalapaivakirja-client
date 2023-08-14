@@ -1,9 +1,11 @@
-import AllPosts from '../components/Catches/AllCatches'
+// import AllPosts from '../components/Catches/AllCatches'
+import PostsInfinite from '../components/Catches/PostsInfinite'
 
 function Catches() {
   return (
     <div>
-      <AllPosts />
+      {/* <AllPosts /> */}
+      <PostsInfinite />
     </div>
   )
 }

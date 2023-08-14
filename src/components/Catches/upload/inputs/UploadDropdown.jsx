@@ -13,7 +13,8 @@ function UploadDropdown(props) {
     setIsOpen(false);
     console.log(props.identifier)
     if (props.identifier === "locationProvince") {
-      props.setValue({...props.value, [props.identifier]: {id: option.id, value: option.value}});
+      console.log(option.value)
+      props.setValue({...props.value, locationProvince: option.value, locationId: option.id});
     } else {
       props.setValue({...props.value, [props.identifier]: option.value})
     }
@@ -27,7 +28,7 @@ function UploadDropdown(props) {
         className="px-4 flex items-center justify-between py-2 w-full text-gray-700 bg-white border rounded focus:outline-none text-left"
       >
         {
-          props.identifier === "locationProvince" ? (props.value.locationProvince.value ? props.value.locationProvince.value : "Valitse..") : props.value?.[props.identifier] ? props.value?.[props.identifier] : "Valitse.."
+          props.value?.[props.identifier] ? props.value?.[props.identifier] : "Valitse.."
         }
         <svg
           className="w-2.5 h-2.5 ml-2.5"
@@ -73,8 +74,8 @@ function UploadDropdown(props) {
 UploadDropdown.propTypes = {
   identifier: PropTypes.string,
   setValue: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  data: PropTypes.func
+  value: PropTypes.object,
+  data: PropTypes.array
 };
 
 export default UploadDropdown;

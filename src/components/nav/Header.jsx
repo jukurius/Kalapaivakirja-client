@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 const Header = (props) => {
   const { auth } = useContext(AppContext);
-  console.log("header", auth);
 
   const toggleNavbar = () => {
     props.setIsOpen(!props.isOpen);
@@ -37,7 +36,7 @@ const Header = (props) => {
 
 Header.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  setIsOpen: PropTypes.bool.isRequired
+  setIsOpen: PropTypes.func
 };
 
 export default Header;

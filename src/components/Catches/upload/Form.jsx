@@ -2,6 +2,7 @@ import useUploadContext from "../../../hooks/useUploadContext";
 import FormInputs from "./FormInputs";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "./formPages/ProgressBar";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 
 function Form() {
   const {
@@ -18,6 +19,7 @@ function Form() {
   } = useUploadContext();
 
   const navigate = useNavigate();
+  const axiosPrivate = useAxiosPrivate();
 
   const handlePrev = () => setPage((prev) => prev - 1);
 
@@ -32,23 +34,24 @@ function Form() {
       }
       return acc;
     }, {});
+    
+
     console.log(JSON.stringify(filteredObject));
+    const controller = new AbortController();
 
     const uploadCatch = async () => {
       try {
-        const response = await axiosPrivate.get("/singlePost", {
-          params: { id: params?.id },
-        });
-        console.log(response.data);
-        isMounted && setPost(response.data);
+        const response = await axiosPrivate.post("/upload/catch", JSON.stringify(filteredObject));
+        console.log(response);
       } catch (err) {
         console.error(err);
-        setAuth({});
         navigate("/login", { state: { from: location }, replace: true });
       }
     };
     uploadCatch();
-    
+    return () => {
+      controller.abort();
+    };
   };
 
   const handleCancel = (e) => {

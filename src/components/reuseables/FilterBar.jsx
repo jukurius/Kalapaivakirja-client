@@ -29,8 +29,6 @@ const FilterBar = (props) => {
     };
   }, []);
 
-  console.log("filterBar",props.filterOptions)
-
   return (
     <>
       {/* Selected filters */}
@@ -110,7 +108,7 @@ const FilterBar = (props) => {
 };
 
 FilterBar.propTypes = {
-  filterOptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  filterOptions: PropTypes.array,
   setFilterOptions: PropTypes.func.isRequired,
 };
 

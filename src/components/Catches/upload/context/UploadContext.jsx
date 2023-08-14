@@ -21,7 +21,7 @@ const UploadContextProvider = ({ children }) => {
     lureColorThree: "",
     lureLength: "",
     depth: "",
-    locationProvince: { id: "", value: "" },
+    locationProvince: "",
     locationCity: "",
     locationLake: "",
     fishingStyle: "",
@@ -30,6 +30,7 @@ const UploadContextProvider = ({ children }) => {
     waterTemp: "",
     wind: "",
     catchDate: "",
+    locationId: 0
   });
 
   const requiredInputsForSubmit = {

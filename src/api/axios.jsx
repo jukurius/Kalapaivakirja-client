@@ -10,3 +10,12 @@ export const axiosPrivate = axios.create({
     headers: { 'Content-Type': 'application/json' },
     withCredentials: true
 });
+
+export const api = axios.create({
+    baseURL: BASE_URL
+})
+
+export const getPostsPage = async (pageParam = 1, options = {}) => {
+    const response = await api.get(`/filterCatchQuery?page=${pageParam}`, options)
+    return response.data;
+}

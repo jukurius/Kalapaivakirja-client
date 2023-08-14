@@ -1,4 +1,3 @@
-import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
@@ -27,24 +26,15 @@ function RenderCards(props) {
       </Link>
     );
   });
-
   return (
-    <InfiniteScroll
-      className="grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-      dataLength={data.length}
-      next={props.fetchMorePosts}
-      hasMore={props.hasMore}
-      loader={<h4>Loading...</h4>}
-    >
+    <>
       {data}
-    </InfiniteScroll>
+    </>
   );
 }
 
 RenderCards.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  fetchMorePosts: PropTypes.func,
-  hasMore: PropTypes.bool,
 };
 
 export default RenderCards;
