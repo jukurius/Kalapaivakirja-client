@@ -7,7 +7,7 @@ const Post = React.forwardRef(({ post }, ref) => {
         <Link
             to={`/saaliit/${post.id}`}
             key={post.id}
-            className="flex flex-col justify-end bg-custom-dark-blue border border-gray-200 rounded-md shadow object-cover h-96"
+            className="flex flex-col justify-end bg-custom-dark-blue border border-gray-200 rounded-md shadow object-cover h-80"
             style={{
                 backgroundImage: `linear-gradient(180deg, transparent, black), url("${post?.images?.length > 0 ? post.images[0] : null}")`,
                 backgroundSize: "cover",

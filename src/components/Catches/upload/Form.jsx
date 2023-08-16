@@ -39,6 +39,7 @@ function Form() {
     console.log(JSON.stringify(filteredObject));
     const controller = new AbortController();
 
+
     const uploadCatch = async () => {
       try {
         const response = await axiosPrivate.post("/upload/catch", JSON.stringify(filteredObject));
