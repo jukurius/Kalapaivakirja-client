@@ -11,6 +11,8 @@ import RequireAuth from "./components/reuseables/requireAuth";
 import UploadPost from "./pages/UploadPost";
 import Menu from "./components/nav/Menu";
 import PersistLogin from "./components/reuseables/PersistLogin";
+import { AnimatePresence } from 'framer-motion';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,18 +21,33 @@ function App() {
     return (
       <div className="main">
         <Header isOpen={isOpen} setIsOpen={setIsOpen} />
-        <div className="middle-container flex">
+        <div className="flex">
           <div
-            className={`absolute z-50 h-[calc(100vh-5rem)] overflow-y-auto lg:static menu-container w-80 text-white bg-slate-800 px-5 py-5 ${
-              isOpen && "hidden"
-            }`}
+            className={`absolute z-50 h-[calc(100vh-5rem)] w-80 overflow-y-auto menu-container lg:static text-white bg-slate-800 px-5 py-5 ${isOpen && "hidden"
+              }`}
           >
             <Menu />
           </div>
-          <div className="content-container h-[calc(100vh-5rem)] overflow-y-auto w-full bg-custom-light-gray">
-            <Outlet />
+          <div className="h-[calc(100vh-5rem)] w-full overflow-y-auto bg-custom-light-gray">
+            <div className="container mx-auto px-5">
+              <AnimatePresence>
+                <Outlet />
+              </AnimatePresence>
+            </div>
           </div>
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     );
   };

@@ -53,22 +53,6 @@ const LoginPage = () => {
         <h2 className="text-2xl font-bold mb-4 flex items-center">
           <IconLogin className="mr-2" /> Kirjaudu sisään
         </h2>
-        {/* <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="email"
-          >
-            Sähköposti
-          </label>
-          <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
-            placeholder="Syötä sähköpostiosoite"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div> */}
         <ValidationComponent fieldName={"Sähköposti"} data={email} setData={setEmail} actionType={"login"} type={"email"} isValid={isValid} setIsValid={setIsValid} />
         <div>
           <label
