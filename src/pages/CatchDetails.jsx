@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AppContext } from "../AppContext";
+import Slider from "../components/reuseables/Slider";
 
 function CatchDetails() {
   const params = useParams();
@@ -35,33 +36,73 @@ function CatchDetails() {
       isMounted = false;
       controller.abort();
     };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       {post ? (
-        <div className="container max-w-7xl mx-auto p-4">
-          <div className="flex flex-wrap">
-            <div className="w-full md:w-1/2 p-4">
-              <img
-                src={post[0]?.images?.length && post[0].images[0]?.image_url}
-                alt="Product Image"
-                className="w-full h-auto"
-              />
+        <div className="container mx-auto p-4 mt-10">
+          <div className="flex gap-10 justify-center">
+            <div className="max-w-[800px] shadow-xl border">
+              {post[0]?.images?.length && (
+                <Slider images={post[0]?.images?.length && post[0].images} />
+              )}
             </div>
-            <div className="w-full md:w-1/2 p-4">
-              <h1 className="text-3xl font-bold mb-4">{post[0]?.species_name}, {post[0]?.weight}kg</h1>
-              <p className="text-gray-600 mb-4 font-bold">Kalastaja: {post[0]?.username}</p>
-              <p className="text-gray-600 mb-4 font-bold">Lisätty: {post[0]?.catch_date}</p>
-              <p className="text-gray-600 mb-4 font-bold">Sijainti: {post[0]?.location_province}, {post[0]?.location_city}</p>
-              <p className="text-gray-600 mb-4 font-bold">{post[0]?.location_lake && <span>Järvi: {post[0]?.location_lake}</span>}</p>
-              <p className="text-gray-600 mb-4 font-bold">{post[0]?.lure_name && <span>Viehe: {post[0]?.lure_name}</span>}</p>
-              <p className="text-gray-600 mb-4 font-bold">{post[0]?.color && <span>Vieheen väri: {post[0]?.color}</span>}</p>
-              <p className="text-gray-600 mb-4 font-bold">{post[0]?.size && <span>Vieheen koko: {post[0]?.size} cm</span>}</p>
-              <p className="text-gray-600 mb-4 font-bold">{post[0]?.air_temperature && <span>Ilman lämpötila: {post[0]?.air_temperature} °C</span>}</p>
-              <p className="text-gray-600 mb-4 font-bold">{post[0]?.water_tempature && <span>Veden lämpötila: {post[0]?.water_tempature} °C</span>}</p>
-              <p className="text-gray-600 mb-4 font-bold">{post[0]?.wind && <span>Tuulen voimakkuus: {post[0]?.wind} m/s</span>}</p>
+            <div className="bg-white min-w-[600px] p-4 shadow-md border">
+              <div className="mb-6">
+                <h2 className="text-xl font-medium text-[#1c2434] mb-3">
+                  Käyttäjä ja aika
+                </h2>
+                {post[0]?.catch_date && (
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-[#1c2434] mb-2 font-medium">Pvm:</p>
+                    <p className="text-md font-Satoshi">
+                      {post[0]?.catch_date}
+                    </p>
+                  </div>
+                )}
+                {post[0]?.username && (
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Kalastaja:
+                    </p>
+                    <p className="text-md">{post[0]?.username}</p>
+                  </div>
+                )}
+              </div>
+              <div className="mb-6">
+                <h2 className="text-xl font-medium text-[#1c2434] mb-3">
+                  Saaliin tiedot
+                </h2>
+                {post[0]?.species_name && (
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">Kalalaji:</p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.species_name}
+                    </p>
+                  </div>
+                )}
+                {post[0]?.weight && (
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">Paino: </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.weight} kg
+                    </p>
+                  </div>
+                )}
+                {post[0]?.catch_length && (
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">Pituus: </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.catch_length} cm
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>

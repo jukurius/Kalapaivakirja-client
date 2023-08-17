@@ -1,8 +1,11 @@
 import useUploadContext from "../../../hooks/useUploadContext";
+import { useState } from "react";
 import FormInputs from "./FormInputs";
 import { useNavigate } from "react-router-dom";
 import ProgressBar from "./formPages/ProgressBar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import LoadingPage from "./formPages/LoadingPage";
+import FinalPage from "./formPages/FinalPage";
 
 function Form() {
   const {
@@ -20,6 +23,9 @@ function Form() {
 
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handlePrev = () => setPage((prev) => prev - 1);
 
@@ -34,19 +40,25 @@ function Form() {
       }
       return acc;
     }, {});
-    
 
     console.log(JSON.stringify(filteredObject));
     const controller = new AbortController();
 
-
     const uploadCatch = async () => {
+      setIsLoading(true);
       try {
-        const response = await axiosPrivate.post("/upload/catch", JSON.stringify(filteredObject));
+        const response = await axiosPrivate.post(
+          "/upload/catch",
+          JSON.stringify(filteredObject)
+        );
         console.log(response);
+        setIsSuccess(true);
       } catch (err) {
+        setIsError(true);
         console.error(err);
         navigate("/login", { state: { from: location }, replace: true });
+      } finally {
+        setIsLoading(false);
       }
     };
     uploadCatch();
@@ -62,69 +74,83 @@ function Form() {
 
   return (
     <div className="flex justify-center items-center h-auto my-10 container max-w-3xl mx-auto">
-      <form className=" w-screen bg-white p-8 shadow-md">
-        <div className="mb-8">
-          <ProgressBar />
-        </div>
-        <header>
-          <h2 className="text-2xl font-bold mb-4 flex items-center">
-            {title[page]}
-          </h2>
-        </header>
-        <div>
-          <FormInputs />
-        </div>
-        <div className="flex justify-between mt-10">
-          <div className="flex gap-2">
-            <button
-              type="button"
-              className={`button ${prevHide} bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                disablePrev
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-blue-700"
-              }}`}
-              onClick={handlePrev}
-              disabled={disablePrev}
-            >
-              Edellinen
-            </button>
+      <form
+        className={`w-screen bg-white p-8 shadow-md min-h-[36vh] ${
+          isLoading || isSuccess || isError && "flex justify-center items-center"
+        }`}
+      >
+        {isLoading ? (
+          <LoadingPage />
+        ) : isSuccess ? (
+          <FinalPage isSuccess={true} />
+        ) : isError ? (
+          <FinalPage isSuccess={false} />
+        ) : (
+          <>
+            <div className="mb-8">
+              <ProgressBar />
+            </div>
+            <header>
+              <h2 className="text-2xl font-bold mb-4 flex items-center">
+                {title[page]}
+              </h2>
+            </header>
+            <div>
+              <FormInputs />
+            </div>
+            <div className="flex justify-between mt-10">
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  className={`button ${prevHide} bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                    disablePrev
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:bg-blue-700"
+                  }}`}
+                  onClick={handlePrev}
+                  disabled={disablePrev}
+                >
+                  Edellinen
+                </button>
 
-            <button
-              type="button"
-              className={`button ${nextHide} bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                disableNext
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-blue-700"
-              }}`}
-              onClick={handleNext}
-              disabled={disableNext}
-            >
-              Seuraava
-            </button>
+                <button
+                  type="button"
+                  className={`button ${nextHide} bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                    disableNext
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:bg-blue-700"
+                  }}`}
+                  onClick={handleNext}
+                  disabled={disableNext}
+                >
+                  Seuraava
+                </button>
 
-            <button
-              type="submit"
-              className={`button ${submitHide} bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                !canSubmit
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-blue-700"
-              }}`}
-              onClick={(e) => handleSubmit(e)}
-              disabled={!canSubmit}
-            >
-              Lähetä
-            </button>
-          </div>
-          <div>
-            <button
-              type="submit"
-              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
-              onClick={(e) => handleCancel(e)}
-            >
-              Peruuta
-            </button>
-          </div>
-        </div>
+                <button
+                  type="submit"
+                  className={`button ${submitHide} bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                    !canSubmit
+                      ? "opacity-50 cursor-not-allowed"
+                      : "hover:bg-blue-700"
+                  }}`}
+                  onClick={(e) => handleSubmit(e)}
+                  disabled={!canSubmit}
+                >
+                  Lähetä
+                </button>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
+                  onClick={(e) => handleCancel(e)}
+                >
+                  Peruuta
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </form>
     </div>
   );
