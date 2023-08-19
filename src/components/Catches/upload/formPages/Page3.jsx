@@ -10,7 +10,7 @@ const ImageBox = ({ image, onImageChange, onDelete }) => {
     : null;
 
   return (
-    <div className="relative w-64 h-64 rounded-md p-4 m-2">
+    <div className="relative w-52 h-52 rounded-sm m-2">
       <div
         className="flex justify-center items-center w-full h-full bg-cover bg-center bg-gray-300 border border-gray-400 rounded-md"
         style={backgroundImageStyle}

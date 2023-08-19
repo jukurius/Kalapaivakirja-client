@@ -25,7 +25,7 @@ function UploadDropdown(props) {
       <button
         type="button"
         onClick={toggleDropdown}
-        className="px-4 flex items-center justify-between py-2 w-full text-gray-700 bg-white border rounded focus:outline-none text-left"
+        className="px-4 flex items-center justify-between py-2 w-full text-gray-700 border-b-2 border-gray-800 focus:outline-none text-left"
       >
         {
           props.value?.[props.identifier] ? props.value?.[props.identifier] : "Valitse.."

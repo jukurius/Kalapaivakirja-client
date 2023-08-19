@@ -6,6 +6,7 @@ import ProgressBar from "./formPages/ProgressBar";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import LoadingPage from "./formPages/LoadingPage";
 import FinalPage from "./formPages/FinalPage";
+import { IconX } from "@tabler/icons-react";
 
 function Form() {
   const {
@@ -67,16 +68,18 @@ function Form() {
     };
   };
 
-  const handleCancel = (e) => {
+  const close = (e) => {
     e.preventDefault();
     navigate(-1);
   };
 
   return (
-    <div className="flex justify-center items-center h-auto my-10 container max-w-3xl mx-auto">
+    <div className="flex justify-center items-center h-auto my-10 container max-w-7xl mx-auto">
       <form
-        className={`w-screen bg-white p-8 shadow-md min-h-[36vh] ${
-          isLoading || isSuccess || isError && "flex justify-center items-center"
+        className={`w-screen p-8 min-h-[36vh] ${
+          isLoading ||
+          isSuccess ||
+          (isError && "flex justify-center items-center")
         }`}
       >
         {isLoading ? (
@@ -86,19 +89,35 @@ function Form() {
         ) : isError ? (
           <FinalPage isSuccess={false} />
         ) : (
-          <>
-            <div className="mb-8">
-              <ProgressBar />
+          <div>
+            <div className="flex justify-end mb-8">
+              <button onClick={(e) => close(e)}>
+                <IconX />
+              </button>
             </div>
-            <header>
-              <h2 className="text-2xl font-bold mb-4 flex items-center">
-                {title[page]}
-              </h2>
-            </header>
-            <div>
-              <FormInputs />
+            <div className="flex justify-between gap-20">
+              <div>
+                <h2 className="text-5xl font-normal mb-4">
+                  Tervetuloa lisäämään kalasaaliisi.
+                </h2>
+                <p className="mb-5">
+                  Kiitämme sinua kalasaaliisi lisäämisestä ja tärkeiden tietojen
+                  jakamisesta kanssamme. Täytäthän lomakkeen huolellisesti ja
+                  rehellisesti, jotta saamme mahdollisimman tarkan kuvan
+                  saaliistasi ja voimme käyttää tietoja parhaalla mahdollisella
+                  tavalla.
+                </p>
+                <h3 className="text-2xl">{title[page]}</h3>
+                <div>
+                  <ProgressBar />
+                </div>
+              </div>
+              <div>
+                <FormInputs />
+              </div>
             </div>
-            <div className="flex justify-between mt-10">
+
+            <div className="flex justify-end mt-5">
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -125,7 +144,6 @@ function Form() {
                 >
                   Seuraava
                 </button>
-
                 <button
                   type="submit"
                   className={`button ${submitHide} bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
@@ -139,7 +157,7 @@ function Form() {
                   Lähetä
                 </button>
               </div>
-              <div>
+              {/* <div>
                 <button
                   type="submit"
                   className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
@@ -147,9 +165,9 @@ function Form() {
                 >
                   Peruuta
                 </button>
-              </div>
+              </div> */}
             </div>
-          </>
+          </div>
         )}
       </form>
     </div>

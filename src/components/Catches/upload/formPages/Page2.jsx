@@ -4,16 +4,16 @@ const LOCATION_URL = "/locations";
 const CITIES_URL = "/citys";
 import useUploadContext from "../../../../hooks/useUploadContext";
 import axios from "../../../../api/axios";
-import { IconPin } from "@tabler/icons-react";
-import { IconWind } from "@tabler/icons-react";
-import { IconClockHour10 } from "@tabler/icons-react";
+// import { IconPin } from "@tabler/icons-react";
+// import { IconWind } from "@tabler/icons-react";
+// import { IconClockHour10 } from "@tabler/icons-react";
 import weatherConditionsJSON from "../../../../data/weatherConditions.json";
 
 function Page2() {
   const { data, setData } = useUploadContext();
   const [locationData, setLocationData] = useState([]);
   const [citiesData, setCitiesData] = useState([]);
-  const [currentDatetime, setCurrentDatetime] = useState('');
+  const [currentDatetime, setCurrentDatetime] = useState("");
   const weatherConditions = weatherConditionsJSON;
 
   useEffect(() => {
@@ -30,11 +30,11 @@ function Page2() {
     const setCurrentDateTime = () => {
       const now = new Date();
       const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-  
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+
       const formattedDatetime = `${year}-${month}-${day}T${hours}:${minutes}`;
       setCurrentDatetime(formattedDatetime);
     };
@@ -58,143 +58,125 @@ function Page2() {
     fetchCities();
     setData({ ...data, locationCity: "" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.locationProvince]); 
+  }, [data?.locationProvince]);
 
   useEffect(() => {
     setData({ ...data, catchDate: currentDatetime });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentDatetime])
+  }, [currentDatetime]);
 
   console.log(citiesData);
 
   return (
-    <>
+    <div className="min-w-[600px]">
       <div className="mb-4">
-        <fieldset className="border p-4 rounded-lg space-y-4">
-          <legend className="text-lg font-semibold flex items-center gap-2">
-            <IconPin />
-            Sijainti
-          </legend>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Maakunta *
-            </label>
-            <UploadDropdown
-              data={locationData}
-              identifier="locationProvince"
-              value={data}
-              setValue={setData}
-            />
-          </div>
-          {data?.locationProvince ? (
-            <div className="mb-4">
-              <label
-                htmlFor="specie"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Kunta *
-              </label>
-              <UploadDropdown
-                data={citiesData}
-                identifier="locationCity"
-                value={data}
-                setValue={setData}
-              />
-            </div>
-          ) : null}
-        </fieldset>
-      </div>
-      <div className="mb-4">
-        <fieldset className="border p-4 rounded-lg space-y-4">
-          <legend className="text-lg font-semibold flex items-center gap-2">
-            <IconClockHour10 />
-            Aika
-          </legend>
-          <div className="mb-4">
-            <label
-              htmlFor="dateTime"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Päivämäärä ja kellonaika *
-            </label>
-            <input
-            className="gap-1"
-              type="datetime-local"
-              id="meeting-time"
-              name="meeting-time"
-              value={currentDatetime}
-              max={currentDatetime}
-              onChange={(e) => setCurrentDatetime(e.target.value)}
-            />
-          </div>
-        </fieldset>
-      </div>
-      <fieldset className="border p-4 rounded-lg space-y-4">
-        <legend className="text-lg font-semibold flex items-center gap-2">
-          <IconWind />
-          Keliolosuhteet
-        </legend>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Keli *
+            Maakunta *
           </label>
           <UploadDropdown
-            data={weatherConditions}
-            identifier="weatherCondition"
+            data={locationData}
+            identifier="locationProvince"
             value={data}
             setValue={setData}
           />
         </div>
+        {data?.locationProvince ? (
+          <div className="mb-4">
+            <label
+              htmlFor="specie"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Kunta *
+            </label>
+            <UploadDropdown
+              data={citiesData}
+              identifier="locationCity"
+              value={data}
+              setValue={setData}
+            />
+          </div>
+        ) : null}
+      </div>
+      <div className="mb-4">
         <div className="mb-4">
           <label
+            htmlFor="dateTime"
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="weight"
           >
-            Ilman lämpötila *
+            Päivämäärä ja kellonaika *
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="weight"
-            type="number"
-            placeholder="°C"
-            value={data.airTemp}
-            onChange={(e) => setData({ ...data, airTemp: e.target.value })}
+            className="gap-1 bg-transparent"
+            type="datetime-local"
+            id="meeting-time"
+            name="meeting-time"
+            value={currentDatetime}
+            max={currentDatetime}
+            onChange={(e) => setCurrentDatetime(e.target.value)}
           />
         </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="weight"
-          >
-            Veden lämpötila
-          </label>
-          <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="weight"
-            type="number"
-            placeholder="°C"
-            value={data.waterTemp}
-            onChange={(e) => setData({ ...data, waterTemp: e.target.value })}
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="weight"
-          >
-            Tuulen nopeus
-          </label>
-          <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="weight"
-            type="number"
-            placeholder="m/s"
-            value={data.wind}
-            onChange={(e) => setData({ ...data, wind: e.target.value })}
-          />
-        </div>
-      </fieldset>
-    </>
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">
+          Keli *
+        </label>
+        <UploadDropdown
+          data={weatherConditions}
+          identifier="weatherCondition"
+          value={data}
+          setValue={setData}
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="weight"
+        >
+          Ilman lämpötila *
+        </label>
+        <input
+          className="appearance-none border-b-2 border-gray-800 bg-transparent w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          id="weight"
+          type="number"
+          placeholder="Ilman lämpötila °C"
+          value={data.airTemp}
+          onChange={(e) => setData({ ...data, airTemp: e.target.value })}
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="weight"
+        >
+          Veden lämpötila
+        </label>
+        <input
+          className="appearance-none border-b-2 border-gray-800 bg-transparent w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          id="weight"
+          type="number"
+          placeholder="Veden lämpötila °C"
+          value={data.waterTemp}
+          onChange={(e) => setData({ ...data, waterTemp: e.target.value })}
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="weight"
+        >
+          Tuulen nopeus
+        </label>
+        <input
+          className="appearance-none border-b-2 border-gray-800 bg-transparent w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          id="weight"
+          type="number"
+          placeholder="Tuulen nopeus m/s"
+          value={data.wind}
+          onChange={(e) => setData({ ...data, wind: e.target.value })}
+        />
+      </div>
+    </div>
   );
 }
 

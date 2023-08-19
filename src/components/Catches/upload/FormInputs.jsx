@@ -14,7 +14,7 @@ const FormInputs = () => {
     }
 
     const content = (
-        <div className="form-inputs flex-col">
+        <div>
             {display[page]}
         </div>
     )

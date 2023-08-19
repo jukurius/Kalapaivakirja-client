@@ -11,6 +11,10 @@ function UploadRadio(props) {
         : { lureColorOne: "" }),
     });
   };
+  const radioStyle = {
+    accentColor: "#3C50E0"
+  };
+
 
   return (
     <div>
@@ -22,6 +26,7 @@ function UploadRadio(props) {
             checked={props.value?.isMultiColor === 0}
             onChange={handleOptionChange}
             className="form-radio h-5 w-5"
+            style={radioStyle}
           />
           <span className="ml-2 text-gray-700">Yksivärinen</span>
         </label>
@@ -33,7 +38,8 @@ function UploadRadio(props) {
             value={1}
             checked={props.value?.isMultiColor === 1}
             onChange={handleOptionChange}
-            className="form-radio h-5 w-5 text-indigo-600"
+            className="form-radio h-5 w-5"
+            style={radioStyle}
           />
           <span className="ml-2 text-gray-700">Monivärinen</span>
         </label>
