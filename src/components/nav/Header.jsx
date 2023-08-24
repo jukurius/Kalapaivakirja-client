@@ -15,6 +15,7 @@ const Header = (props) => {
     props.setIsOpen(!props.isOpen);
   };
 
+  console.log(auth?.img)
   useEffect(() => {
     const handleResize = () => {
       props.setIsLargeScreen(window.innerWidth >= 1024); // Adjust the breakpoint as needed
@@ -54,8 +55,8 @@ const Header = (props) => {
         <div className="hidden user lg:flex items-center gap-5">
           <span className="font-semibold">{auth?.user}</span>
           <img
-            className="w-14 h-14"
-            src="https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295430_1280.png"
+            className="w-14 h-14 rounded-[50%] object-cover"
+            src={auth?.img ? auth.img : null}
           />
           <IconChevronDown />
         </div>

@@ -9,15 +9,22 @@ import CatchDetails from "./pages/CatchDetails";
 import NotFound from "./pages/NotFound";
 import RequireAuth from "./components/reuseables/requireAuth";
 import UploadPost from "./pages/UploadPost";
+import Users from "./pages/Users";
+import Profile from "./pages/Profile";
+import Statistics from "./pages/Statistics";
 import Menu from "./components/nav/Menu";
 import PersistLogin from "./components/reuseables/PersistLogin";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import { AppContext } from "./AppContext";
+import Modal from "./components/reuseables/customModal";
+import GoogleMapShow from "./components/reuseables/GoogleMapShowLocation";
+import { UploadContextProvider } from "./components/Catches/upload/context/UploadContext";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const { auth } = useContext(AppContext);
+  const { auth, openModal, closeModal, modalIsOpen } = useContext(AppContext);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
 
   const Layout = () => {
@@ -36,7 +43,7 @@ function App() {
                 !isOpen && "hidden"
               }`}
             >
-              <Menu /> 
+              <Menu />
             </div>
           )}
 
@@ -45,6 +52,11 @@ function App() {
               <AnimatePresence>
                 <Outlet />
               </AnimatePresence>
+              {modalIsOpen && (
+                <Modal isOpen={openModal} onClose={closeModal}>
+                  <GoogleMapShow />
+                </Modal>
+              )}
             </div>
           </div>
         </div>
@@ -65,6 +77,7 @@ function App() {
   };
 
   return (
+    <UploadContextProvider>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route element={<PersistLogin />}>
@@ -73,15 +86,20 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="notfound" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="tietosuojaseloste" element={<PrivacyPolicy />} />
           {/* Private routes */}
           <Route element={<RequireAuth />}>
             <Route path="saaliit" element={<Catches />} />
             <Route path="saaliit/:id" element={<CatchDetails />} />
             <Route path="lisaa-saalis" element={<UploadPost />} />
+            <Route path="kayttajat" element={<Users />} />
+            <Route path="statistiikka" element={<Statistics />} />
+            <Route path="profiili" element={<Profile />} />
           </Route>
         </Route>
       </Route>
     </Routes>
+    </UploadContextProvider>
   );
 }
 

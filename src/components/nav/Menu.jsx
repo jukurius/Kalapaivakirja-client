@@ -47,14 +47,14 @@ const Menu = () => {
           </Link>
           <Link
             className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
-            to="/"
+            to="/kayttajat"
           >
             <IconUsersGroup size={20} />
             Käyttäjät
           </Link>
           <Link
             className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
-            to="/"
+            to="/statistiikka"
           >
             <IconHome size={20} />
             Statistiikka

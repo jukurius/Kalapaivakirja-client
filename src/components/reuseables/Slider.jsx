@@ -18,14 +18,28 @@ const Slider = ({ images }) => {
       pagination={{ clickable: true }}
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log("slide change")}
-      style={{  
+      loop={true}
+      style={{
         "--swiper-navigation-color": "#fff",
         "--swiper-pagination-color": "#fff",
       }}
     >
       {imageArr.map((image, index) => (
         <SwiperSlide key={index}>
-          <img className="max-h-[800px] w-full object-cover" src={image} alt={`Slide ${index}`} />
+          <div
+            className="flex justify-center items-center object-cover w-full rounded-lg"
+            // style={{
+            //   backgroundImage: `url("${image}")`,
+            //   backgroundSize: "cover",
+            //   backgroundPosition: "center",
+            // }}
+          >
+            <img
+              className="w-[600px] max-h-[600px] object-cover"
+              src={image}
+              alt={`Slide ${index}`}
+            />
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>

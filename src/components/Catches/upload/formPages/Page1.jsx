@@ -141,7 +141,7 @@ function Page1() {
           onChange={(e) => setData({ ...data, depth: e.target.value })}
         />
       </div>
-      <div className="mb-4 flex flex-col md:flex-row gap-6 md:gap-32 rounded-md p-4">
+      <div className="mb-4 flex flex-col md:flex-row gap-6 md:gap-32 rounded-md">
         <div>
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Valitse vieheen väritys<span className="text-red-500">*</span>

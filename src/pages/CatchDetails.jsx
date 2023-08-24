@@ -4,6 +4,7 @@ import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import Slider from "../components/reuseables/Slider";
+import GoogleMapShow from "../components/reuseables/GoogleMapShowLocation";
 
 function CatchDetails() {
   const params = useParams();
@@ -40,30 +41,28 @@ function CatchDetails() {
   }, []);
 
   return (
-    <>
+    <div>
       {post ? (
-        <div className="container mx-auto p-4 mt-10">
-          <div className="flex gap-10 justify-center">
-            <div className="max-w-[800px] shadow-xl border">
+        <div className="container bg-slate-50 max-w-7xl mx-auto p-8 mt-10 rounded-md shadow-md">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="shadow-xl rounded-lg">
               {post[0]?.images?.length && (
                 <Slider images={post[0]?.images?.length && post[0].images} />
               )}
             </div>
-            <div className="bg-white min-w-[600px] p-4 shadow-md border">
-              <div className="mb-6">
+            <div className="py-4 px-8">
+              <div className="mb-6 flex flex-col gap-4">
                 <h2 className="text-xl font-medium text-[#1c2434] mb-3">
                   Käyttäjä ja aika
                 </h2>
-                {post[0]?.catch_date && (
-                  <div className="flex items-baseline gap-2">
+                {post[0]?.date && (
+                  <div className="flex items-baseline justify-between border-b">
                     <p className="text-[#1c2434] mb-2 font-medium">Pvm:</p>
-                    <p className="text-md font-Satoshi">
-                      {post[0]?.catch_date}
-                    </p>
+                    <p className="text-md font-Satoshi">{post[0]?.date}</p>
                   </div>
                 )}
                 {post[0]?.username && (
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex items-baseline justify-between border-b">
                     <p className="text-[#1c2434] text-md mb-2 font-medium">
                       Kalastaja:
                     </p>
@@ -71,13 +70,15 @@ function CatchDetails() {
                   </div>
                 )}
               </div>
-              <div className="mb-6">
+              <div className="mb-6 flex flex-col gap-4">
                 <h2 className="text-xl font-medium text-[#1c2434] mb-3">
                   Saaliin tiedot
                 </h2>
                 {post[0]?.species_name && (
-                  <div className="flex items-baseline gap-2">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">Kalalaji:</p>
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Kalalaji:
+                    </p>
                     <p className="text-md font-Satoshi">
                       {" "}
                       {post[0]?.species_name}
@@ -85,8 +86,10 @@ function CatchDetails() {
                   </div>
                 )}
                 {post[0]?.weight && (
-                  <div className="flex items-baseline gap-2">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">Paino: </p>
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Paino:{" "}
+                    </p>
                     <p className="text-md font-Satoshi">
                       {" "}
                       {post[0]?.weight} kg
@@ -94,8 +97,10 @@ function CatchDetails() {
                   </div>
                 )}
                 {post[0]?.catch_length && (
-                  <div className="flex items-baseline gap-2">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">Pituus: </p>
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Pituus:{" "}
+                    </p>
                     <p className="text-md font-Satoshi">
                       {" "}
                       {post[0]?.catch_length} cm
@@ -104,12 +109,144 @@ function CatchDetails() {
                 )}
               </div>
             </div>
+            <div className="items-baseline py-4 px-8">
+              <div className="mb-6 flex flex-col gap-4">
+                <h2 className="text-xl font-medium text-[#1c2434] mb-3">
+                  Sijainti ja sää
+                </h2>
+                {post[0]?.location_province && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Maakunta:
+                    </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.location_province}
+                    </p>
+                  </div>
+                )}
+                {post[0]?.location_city && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Kunta:
+                    </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.location_city}
+                    </p>
+                  </div>
+                )}
+                {post[0]?.location_lake && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Järvi:
+                    </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.location_lake}
+                    </p>
+                  </div>
+                )}
+                {post[0]?.weather_condition && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Keliolosuhteet:
+                    </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.weather_condition}
+                    </p>
+                  </div>
+                )}
+                {post[0]?.air_temp && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Ilman lämpötila:
+                    </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.air_temp} °C
+                    </p>
+                  </div>
+                )}
+                {post[0]?.water_temp && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Veden lämpötila:
+                    </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.water_temp} °C
+                    </p>
+                  </div>
+                )}
+                {post[0]?.wind && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Tuuli:
+                    </p>
+                    <p className="text-md font-Satoshi"> {post[0]?.wind} m/s</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="items-baseline py-4 px-8">
+              <div className="mb-6 flex flex-col gap-4">
+                <h2 className="text-xl font-medium text-[#1c2434] mb-3">
+                  Vieheen tiedot
+                </h2>
+                {post[0]?.fishing_style && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Kalastustyyli:
+                    </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.fishing_style}
+                    </p>
+                  </div>
+                )}
+                {post[0]?.maker_name && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Vieheen merkki:
+                    </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.maker_name}
+                    </p>
+                  </div>
+                )}
+                {post[0]?.size && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Vieheen pituus:
+                    </p>
+                    <p className="text-md font-Satoshi"> {post[0]?.size} cm</p>
+                  </div>
+                )}
+                {post[0]?.color_first && (
+                  <div className="flex items-baseline justify-between border-b">
+                    <p className="text-[#1c2434] text-md mb-2 font-medium">
+                      Vieheen väritys:
+                    </p>
+                    <p className="text-md font-Satoshi">
+                      {" "}
+                      {post[0]?.color_first}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="items-baseline py-4 px-8">
+              <GoogleMapShow />
+            </div>
           </div>
         </div>
       ) : (
         <p>No Post to display</p>
       )}
-    </>
+    </div>
   );
 }
 

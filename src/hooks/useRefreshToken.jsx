@@ -12,7 +12,8 @@ const useRefreshToken = () => {
             return {
                 ...prev,
                 user: response.data.user,
-                accessToken: response.data.token 
+                accessToken: response.data.token,
+                img: response.data.img
             }
         });
         return response.data.token;

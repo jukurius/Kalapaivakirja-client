@@ -29,7 +29,9 @@ const LoginPage = () => {
       );
       const accessToken = response?.data?.token;
       const user = response?.data?.user;
-      setAuth({ user: user, accessToken: accessToken });
+      const img = response?.data?.img
+      setAuth({ user: user, accessToken: accessToken, img: img });
+      localStorage.setItem("isLogged", JSON.stringify(true));
       setEmail("");
       setPassword("");
       navigate("/");

@@ -47,7 +47,7 @@ const InfiniteCarousel = ({ posts }) => {
         <SwiperSlide key={index}>
           <div className="rounded-lg">
             <img
-              className="w-full max-h-[420px] mb-4 rounded-md"
+              className="w-full max-h-[420px] mb-4 rounded-md object-cover"
               src={item?.images?.length > 0 ? item.images[0] : null}
               alt={`Slide ${index}`}
             />

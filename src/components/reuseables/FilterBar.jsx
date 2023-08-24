@@ -42,7 +42,7 @@ const FilterBar = (props) => {
       <div className="hidden md:block">
         <div className="mb-4">
           <div className="flex gap-2 items-center">
-            <div className="flex-1">{isLargeScreen && <Search />}</div>
+            <div className="flex w-[40rem]">{isLargeScreen && <Search />}</div>
             <div className="flex gap-2">
               {isLargeScreen && (
                 <>

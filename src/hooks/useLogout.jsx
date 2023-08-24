@@ -11,6 +11,7 @@ const useLogout = () => {
             await axios('/logout', {
                 withCredentials: true
             });
+            localStorage.setItem("isLogged", JSON.stringify(false));
             notify('Toivottavasti nähdään pian 🫡', 'success');
         } catch (err) {
             console.error(err);

@@ -1,8 +1,8 @@
-@import 'typeface-dm-sans';
+@import "typeface-dm-sans";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-    font-family: 'DM Sans', sans-serif;
-  }
+  font-family: "DM Sans", sans-serif;
+}

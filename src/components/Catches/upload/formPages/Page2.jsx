@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import UploadDropdown from "../inputs/UploadDropdown";
 const LOCATION_URL = "/locations";
 const CITIES_URL = "/citys";
 import useUploadContext from "../../../../hooks/useUploadContext";
 import axios from "../../../../api/axios";
-// import { IconPin } from "@tabler/icons-react";
-// import { IconWind } from "@tabler/icons-react";
-// import { IconClockHour10 } from "@tabler/icons-react";
 import weatherConditionsJSON from "../../../../data/weatherConditions.json";
+import { AppContext } from "../../../../AppContext";
 
 function Page2() {
   const { data, setData } = useUploadContext();
@@ -15,6 +13,7 @@ function Page2() {
   const [citiesData, setCitiesData] = useState([]);
   const [currentDatetime, setCurrentDatetime] = useState("");
   const weatherConditions = weatherConditionsJSON;
+  const { openModal } = useContext(AppContext);
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -65,14 +64,13 @@ function Page2() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDatetime]);
 
-  console.log(citiesData);
 
   return (
     <div className="min-w-[600px]">
       <div className="mb-4">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
-            Maakunta *
+            Maakunta<span className="text-red-500">*</span>
           </label>
           <UploadDropdown
             data={locationData}
@@ -84,10 +82,10 @@ function Page2() {
         {data?.locationProvince ? (
           <div className="mb-4">
             <label
-              htmlFor="specie"
+              htmlFor="locationCity"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              Kunta *
+              Kunta<span className="text-red-500">*</span>
             </label>
             <UploadDropdown
               data={citiesData}
@@ -97,6 +95,19 @@ function Page2() {
             />
           </div>
         ) : null}
+        {data?.locationProvince && data?.locationCity ? (
+          <div className="mb-4">
+            <label
+              htmlFor="specie"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Tarkka sijainti
+            </label>
+            <button onClick={() => openModal()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Avaa kartta
+            </button>
+          </div>
+        ) : null}
       </div>
       <div className="mb-4">
         <div className="mb-4">
@@ -104,7 +115,7 @@ function Page2() {
             htmlFor="dateTime"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Päivämäärä ja kellonaika *
+            Päivämäärä ja kellonaika<span className="text-red-500">*</span>
           </label>
           <input
             className="gap-1 bg-transparent"
@@ -119,7 +130,7 @@ function Page2() {
       </div>
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2">
-          Keli *
+          Keli<span className="text-red-500">*</span>
         </label>
         <UploadDropdown
           data={weatherConditions}
@@ -133,7 +144,7 @@ function Page2() {
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="weight"
         >
-          Ilman lämpötila *
+          Ilman lämpötila<span className="text-red-500">*</span>
         </label>
         <input
           className="appearance-none border-b-2 border-gray-800 bg-transparent w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"

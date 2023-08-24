@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 
 const AppContextProvider = ({ children }) => {
     const [auth, setAuth] = useState({});
-    const [persist, setPersist] = useState(JSON.parse(localStorage.getItem("persist")) || false);
+    const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem("isLogged")) || false);
+    const [modalIsOpen, setModalIsOpen] = useState(false)
     const [filterOptions, setFilterOptions] = useState([
       {
         filterType: "species_name",
@@ -31,9 +32,16 @@ const AppContextProvider = ({ children }) => {
         console.error("Login failed:", error);
       }
     };
+
+    const openModal = () => {
+      setModalIsOpen(true);
+    }
+    const closeModal = () => {
+      setModalIsOpen(false);
+    }
   
     return (
-      <AppContext.Provider value={{ auth, setAuth, filterOptions, setFilterOptions, handleLogout, persist, setPersist }}>
+      <AppContext.Provider value={{ auth, setAuth, filterOptions, setFilterOptions, handleLogout, isLogged, setIsLogged, openModal, closeModal, modalIsOpen }}>
         { children }
       </AppContext.Provider>
     );
