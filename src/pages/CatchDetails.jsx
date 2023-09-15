@@ -1,10 +1,19 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import Slider from "../components/reuseables/Slider";
-import GoogleMapShow from "../components/reuseables/GoogleMapShowLocation";
+import GoogleMap from "../components/reuseables/GoogleMapShowLocation";
+import PostShowComments from "../components/reuseables/PostShowComments";
+import PostWriteComment from "../components/reuseables/PostWriteComment";
+import CatchDetailBox from "../components/reuseables/CatchDetailBox";
+import { IconFish } from "@tabler/icons-react";
+import { IconWeight } from "@tabler/icons-react";
+import { IconMapPin } from "@tabler/icons-react";
+import { IconUser } from "@tabler/icons-react";
+import { IconSunWind } from "@tabler/icons-react";
+import { IconFishHook } from "@tabler/icons-react";
 
 function CatchDetails() {
   const params = useParams();
@@ -13,19 +22,25 @@ function CatchDetails() {
   const navigate = useNavigate();
   const location = useLocation();
   const { setAuth } = useContext(AppContext);
+  const [comments, setComments] = useState([]);
+  const [insertFlag, setInsertFlag] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
-
+    const fetchComments = async (postId) => {
+      const response = await axiosPrivate.get(`/comments?catchId=${postId}`);
+      console.log(response.data);
+      setComments(response.data);
+    };
     const getPost = async () => {
       try {
         const response = await axiosPrivate.get("/singlePost", {
           // signal: controller.signal,
           params: { id: params?.id },
         });
-        console.log(response.data);
         isMounted && setPost(response.data);
+        fetchComments(response.data[0]?.id);
       } catch (err) {
         console.error(err);
         setAuth({});
@@ -33,219 +48,212 @@ function CatchDetails() {
       }
     };
     getPost();
+
+    fetchComments();
     return () => {
       isMounted = false;
       controller.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [insertFlag]);
+  console.log(post[0]?.lat);
+
+  const insertNewComment = async (catchId, content) => {
+    try {
+      const body = {
+        catchId: catchId,
+        commentContent: content,
+      };
+      await axiosPrivate.post("/newComment", JSON.stringify(body));
+      setInsertFlag(insertFlag + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div>
+    <div className="container max-w-7xl mx-auto p-8 mt-10">
       {post ? (
-        <div className="container bg-slate-50 max-w-7xl mx-auto p-8 mt-10 rounded-md shadow-md">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="shadow-xl rounded-lg">
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            <CatchDetailBox
+              header={"KALALAJI"}
+              icon={<IconFish size={32} color="blue" />}
+            >
+              <h4 className="text-md font-semibold">{post[0]?.species_name}</h4>
+            </CatchDetailBox>
+            <CatchDetailBox
+              header={"PAINO JA PITUUS"}
+              icon={<IconWeight size={32} color="blue" />}
+            >
+              <h4 className="text-md font-semibold">{post[0]?.weight} KG</h4>
+              <h4 className="text-md font-semibold">
+                {post[0]?.catch_length} CM
+              </h4>
+            </CatchDetailBox>
+            <CatchDetailBox
+              header={"PAIKKA JA AIKA"}
+              icon={<IconMapPin size={32} color="blue" />}
+            >
+              <h4 className="text-md font-semibold">
+                {post[0]?.location_province}, {post[0]?.location_city}
+              </h4>
+              <h4 className="text-md font-semibold">{post[0]?.date}</h4>
+            </CatchDetailBox>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="col-span-2">
               {post[0]?.images?.length && (
                 <Slider images={post[0]?.images?.length && post[0].images} />
               )}
             </div>
-            <div className="py-4 px-8">
-              <div className="mb-6 flex flex-col gap-4">
-                <h2 className="text-xl font-medium text-[#1c2434] mb-3">
-                  Käyttäjä ja aika
-                </h2>
-                {post[0]?.date && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] mb-2 font-medium">Pvm:</p>
-                    <p className="text-md font-Satoshi">{post[0]?.date}</p>
-                  </div>
-                )}
-                {post[0]?.username && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Kalastaja:
-                    </p>
-                    <p className="text-md">{post[0]?.username}</p>
-                  </div>
-                )}
-              </div>
-              <div className="mb-6 flex flex-col gap-4">
-                <h2 className="text-xl font-medium text-[#1c2434] mb-3">
-                  Saaliin tiedot
-                </h2>
-                {post[0]?.species_name && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Kalalaji:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
-                      {post[0]?.species_name}
-                    </p>
-                  </div>
-                )}
-                {post[0]?.weight && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Paino:{" "}
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
-                      {post[0]?.weight} kg
-                    </p>
-                  </div>
-                )}
-                {post[0]?.catch_length && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Pituus:{" "}
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
-                      {post[0]?.catch_length} cm
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="items-baseline py-4 px-8">
-              <div className="mb-6 flex flex-col gap-4">
-                <h2 className="text-xl font-medium text-[#1c2434] mb-3">
-                  Sijainti ja sää
-                </h2>
-                {post[0]?.location_province && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Maakunta:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
-                      {post[0]?.location_province}
-                    </p>
-                  </div>
-                )}
-                {post[0]?.location_city && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Kunta:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
-                      {post[0]?.location_city}
-                    </p>
-                  </div>
-                )}
-                {post[0]?.location_lake && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Järvi:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
-                      {post[0]?.location_lake}
-                    </p>
-                  </div>
-                )}
+            <div className="flex flex-col gap-6 col-span-1">
+              <CatchDetailBox
+                header={"KALASTAJA"}
+                icon={<IconUser color="blue" size={32} />}
+              >
+                <Link className="text-blue-800 font-bold text-md" to="/">
+                  {post[0]?.username}
+                </Link>
+              </CatchDetailBox>
+              <CatchDetailBox
+                header={"SÄÄOLOSUHTEET"}
+                icon={<IconSunWind color="blue" size={32} />}
+                iconPosition={"start"}
+              >
                 {post[0]?.weather_condition && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Keliolosuhteet:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
+                  <div className="flex flex-col items-baseline py-2">
+                    <h4 className="text-gray-500 text-xs tracking-widest">
+                      KELI
+                    </h4>
+                    <p className="text-md font-medium">
                       {post[0]?.weather_condition}
                     </p>
                   </div>
                 )}
-                {post[0]?.air_temp && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Ilman lämpötila:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
-                      {post[0]?.air_temp} °C
-                    </p>
+                {post[0]?.wind && (
+                  <div className="flex flex-col items-baseline py-2">
+                    <h4 className="text-gray-500 text-xs tracking-widest">
+                      TUULI
+                    </h4>
+                    <p className="text-md font-medium">{post[0]?.wind} M/S</p>
                   </div>
                 )}
                 {post[0]?.water_temp && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Veden lämpötila:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
+                  <div className="flex flex-col items-baseline py-2">
+                    <h4 className="text-gray-500 text-xs tracking-widest">
+                      VEDEN LÄMPÖTILA
+                    </h4>
+                    <p className="text-md font-medium">
                       {post[0]?.water_temp} °C
                     </p>
                   </div>
                 )}
-                {post[0]?.wind && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Tuuli:
+                {post[0]?.water_temp && (
+                  <div className="flex flex-col items-baseline py-2">
+                    <h4 className="text-gray-500 text-xs tracking-widest">
+                      ILMAN LÄMPÖTILA
+                    </h4>
+                    <p className="text-md font-medium">
+                      {post[0]?.air_temp} °C
                     </p>
-                    <p className="text-md font-Satoshi"> {post[0]?.wind} m/s</p>
                   </div>
                 )}
-              </div>
-            </div>
-            <div className="items-baseline py-4 px-8">
-              <div className="mb-6 flex flex-col gap-4">
-                <h2 className="text-xl font-medium text-[#1c2434] mb-3">
-                  Vieheen tiedot
-                </h2>
+              </CatchDetailBox>
+              <CatchDetailBox
+                header={"VIEHE"}
+                icon={<IconFishHook color="blue" size={32} />}
+                iconPosition={"start"}
+              >
                 {post[0]?.fishing_style && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Kalastustyyli:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
+                  <div className="flex flex-col items-baseline py-2">
+                    <h4 className="text-gray-500 text-xs tracking-widest">
+                      KALASTUSTYYLI
+                    </h4>
+                    <p className="text-md font-medium">
                       {post[0]?.fishing_style}
                     </p>
                   </div>
                 )}
                 {post[0]?.maker_name && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Vieheen merkki:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
-                      {post[0]?.maker_name}
-                    </p>
+                  <div className="flex flex-col items-baseline py-2">
+                    <h4 className="text-gray-500 text-xs tracking-widest">
+                      VALMISTAJA
+                    </h4>
+                    <p className="text-md font-medium">{post[0]?.maker_name}</p>
                   </div>
                 )}
                 {post[0]?.size && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Vieheen pituus:
-                    </p>
-                    <p className="text-md font-Satoshi"> {post[0]?.size} cm</p>
+                  <div className="flex flex-col items-baseline py-2">
+                    <h4 className="text-gray-500 text-xs tracking-widest">
+                      VIEHEEN PITUUS
+                    </h4>
+                    <p className="text-md font-medium">{post[0]?.size} CM</p>
                   </div>
                 )}
-                {post[0]?.color_first && (
-                  <div className="flex items-baseline justify-between border-b">
-                    <p className="text-[#1c2434] text-md mb-2 font-medium">
-                      Vieheen väritys:
-                    </p>
-                    <p className="text-md font-Satoshi">
-                      {" "}
+                {post[0]?.color_second == null &&
+                post[0]?.color_third == null ? (
+                  <div className="flex flex-col items-baseline py-2">
+                    <h4 className="text-gray-500 text-xs tracking-widest">
+                      VÄRITYS
+                    </h4>
+                    <p className="text-md font-medium">
                       {post[0]?.color_first}
                     </p>
                   </div>
+                ) : (
+                  <div className="flex flex-col items-baseline py-2">
+                    <h4 className="text-gray-500 text-xs tracking-widest mb-2">
+                      VÄRITYS
+                    </h4>
+                    <div className="flex gap-x-8 gap-y-2 flex-wrap">
+                      <div>
+                        <h4 className="text-gray-500 text-xs tracking-widest">
+                          SELKÄ
+                        </h4>
+                        <p className="text-md font-medium">
+                          {post[0]?.color_first}
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-gray-500 text-xs tracking-widest">
+                          KYLKI
+                        </h4>
+                        <p className="text-md font-medium">
+                          {post[0]?.color_second}
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-gray-500 text-xs tracking-widest">
+                          VATSA
+                        </h4>
+                        <p className="text-md font-medium">
+                          {post[0]?.color_third}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 )}
-              </div>
+              </CatchDetailBox>
             </div>
-            <div className="items-baseline py-4 px-8">
-              <GoogleMapShow />
+            <div>
+              <GoogleMap
+                lat={post[0]?.lat !== null && parseFloat(post[0]?.lat)}
+                lng={post[0]?.lat !== null && parseFloat(post[0]?.lng)}
+              />
             </div>
           </div>
         </div>
       ) : (
         <p>No Post to display</p>
       )}
+      <div className="bg-white rounded-lg shadow-md mt-10">
+        <PostShowComments comments={comments} />
+        <PostWriteComment
+          insertNewComment={insertNewComment}
+          catchId={post[0]?.id}
+        />
+      </div>
     </div>
   );
 }

@@ -1,22 +1,22 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 
 function UploadDropdown(props) {
-  const [isOpen, setIsOpen] = useState(false);
   const options = props.data;
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
+  
   const handleOptionClick = (option) => {
-    setIsOpen(false);
-    console.log(props.identifier)
-    if (props.identifier === "locationProvince") {
-      console.log(option.value)
-      props.setValue({...props.value, locationProvince: option.value, locationId: option.id});
+    if (props.identifier === "is_private") {
+      props.setValue({ ...props.value, [props.identifier]: option.value });
     } else {
-      props.setValue({...props.value, [props.identifier]: option.value})
+      props.onToggle();
+      if (props.identifier === "locationProvince") {
+        props.setValue({
+          ...props.value,
+          locationProvince: option.value,
+          locationId: option.id,
+        });
+      } else {
+        props.setValue({ ...props.value, [props.identifier]: option.value });
+      }
     }
   };
 
@@ -24,12 +24,12 @@ function UploadDropdown(props) {
     <div className="relative block text-left">
       <button
         type="button"
-        onClick={toggleDropdown}
+        onClick={props.onToggle}
         className="px-4 flex items-center justify-between py-2 w-full text-gray-700 border-b-2 border-gray-800 focus:outline-none text-left"
       >
-        {
-          props.value?.[props.identifier] ? props.value?.[props.identifier] : "Valitse.."
-        }
+        {props.value?.[props.identifier]
+          ? props.value?.[props.identifier]
+          : "Valitse.."}
         <svg
           className="w-2.5 h-2.5 ml-2.5"
           aria-hidden="true"
@@ -46,7 +46,7 @@ function UploadDropdown(props) {
           />
         </svg>
       </button>
-      {isOpen && (
+      {props.isOpen && (
         <div className="z-10 origin-top-right absolute right-0 overflow-auto px-2 max-h-96 mt-0 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <div
             className="py-1"
@@ -75,7 +75,9 @@ UploadDropdown.propTypes = {
   identifier: PropTypes.string,
   setValue: PropTypes.func.isRequired,
   value: PropTypes.object,
-  data: PropTypes.array
+  data: PropTypes.array,
+  isOpen: PropTypes.bool,
+  onToggle: PropTypes.func.isRequired,
 };
 
 export default UploadDropdown;

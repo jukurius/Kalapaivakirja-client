@@ -35,7 +35,7 @@ const Slider = ({ images }) => {
             // }}
           >
             <img
-              className="w-[600px] max-h-[600px] object-cover"
+              className="object-cover rounded-lg shadow-lg"
               src={image}
               alt={`Slide ${index}`}
             />

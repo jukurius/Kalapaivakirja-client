@@ -3,6 +3,9 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { IconX } from "@tabler/icons-react";
 import { IconPlus } from "@tabler/icons-react";
+import UploadDropdown from "../Catches/upload/inputs/UploadDropdown";
+import registerJSON from "../../data/register.json";
+import methodsJSON from "../../data/fishingMethods.json";
 
 const RegisterForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,7 +16,23 @@ const RegisterForm = () => {
   const [password2, setPassword2] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState([""]);
+  const [activity, setActivity] = useState({ activity: "" });
+  const [fishingMethod, setFishingMethod] = useState({ method: "" });
+  const data = registerJSON;
+  const methods = methodsJSON;
   const navigate = useNavigate();
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [privacyCheckbox, setPrivacyCheckbox] = useState();
+
+  const toggleDropdown = (index) => {
+    if (index === openDropdown) {
+      setOpenDropdown(null);
+    } else {
+      setOpenDropdown(index);
+    }
+  };
+  console.log(activity.activity);
+  console.log(fishingMethod.method);
 
   //Errorhandling
   const [userError, setUserError] = useState("");
@@ -57,6 +76,8 @@ const RegisterForm = () => {
         lastname: lastName,
         description: description,
         image: image,
+        activity: activity.activity,
+        method: fishingMethod.method,
       };
       const res = await axios.post("http://localhost:3000/register", usrObject);
       console.log("Registration successful:", res);
@@ -65,6 +86,21 @@ const RegisterForm = () => {
       console.error("Registration failed:", error);
       // Handle error scenario
     }
+  };
+
+  const canSubmit = () => {
+    if (
+      userName &&
+      email &&
+      password &&
+      password2 &&
+      activity.activity &&
+      fishingMethod.method &&
+      privacyCheckbox
+    ) {
+      return true;
+    }
+    return false;
   };
 
   const handleSubmit = async (e) => {
@@ -112,6 +148,11 @@ const RegisterForm = () => {
 
   const handleImageDelete = () => {
     setImage("");
+  };
+
+  const handleCheckboxChange = (e) => {
+    console.log("first", e.target.checked);
+    setPrivacyCheckbox(e.target.checked);
   };
 
   return (
@@ -261,6 +302,38 @@ const RegisterForm = () => {
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="activity"
+              >
+                Kalastus aktiivisuus<span className="text-red-500">*</span>
+              </label>
+              <UploadDropdown
+                data={data}
+                identifier="activity"
+                value={activity}
+                setValue={setActivity}
+                isOpen={openDropdown === 0}
+                onToggle={() => toggleDropdown(0)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="activity"
+              >
+                Kalastustyyli<span className="text-red-500">*</span>
+              </label>
+              <UploadDropdown
+                data={methods}
+                identifier="method"
+                value={fishingMethod}
+                setValue={setFishingMethod}
+                isOpen={openDropdown === 1}
+                onToggle={() => toggleDropdown(1)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="fistname"
               >
                 Etunimi
@@ -340,6 +413,7 @@ const RegisterForm = () => {
                 type="checkbox"
                 id="privacyCheckbox"
                 className="form-checkbox h-5 w-5 text-indigo-600 accent-[#3C50E0]"
+                onChange={(e) => handleCheckboxChange(e)}
               />
               <label
                 htmlFor="privacyCheckbox"
@@ -350,14 +424,19 @@ const RegisterForm = () => {
                   className="text-blue-800 underline"
                   to="/tietosuojaseloste"
                 >
-                  Tietosuojaselosteen
+                  Tietosuojaselosteen<span className="text-red-500">*</span>
                 </Link>
               </label>
             </div>
             <div className="flex items-center justify-between mt-8">
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className={`bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                  !canSubmit
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-blue-700"
+                }}`}
                 type="submit"
+                disabled={!canSubmit()}
               >
                 Luo tili
               </button>

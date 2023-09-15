@@ -13,6 +13,7 @@ function Form() {
     page,
     setPage,
     data,
+    resetData,
     title,
     canSubmit,
     disablePrev,
@@ -43,6 +44,12 @@ function Form() {
     }, {});
 
     console.log(JSON.stringify(filteredObject));
+    if (filteredObject.is_private === "Julkinen") {
+      filteredObject.is_private = 0;
+    } else {
+      filteredObject.is_private = 1;
+    }
+    
     const controller = new AbortController();
 
     const uploadCatch = async () => {
@@ -54,6 +61,8 @@ function Form() {
         );
         console.log(response);
         setIsSuccess(true);
+        resetData();
+        setPage(0);
       } catch (err) {
         setIsError(true);
         console.error(err);
@@ -74,9 +83,9 @@ function Form() {
   };
 
   return (
-    <div className="flex justify-center items-center h-auto my-10 container max-w-7xl mx-auto">
+    <div className="flex justify-center items-center h-auto my-10 container lg:max-w-7xl mx-auto">
       <form
-        className={`w-screen p-8 min-h-[36vh] ${
+        className={`w-full p-8 min-h-[36vh] ${
           isLoading ||
           isSuccess ||
           (isError && "flex justify-center items-center")
@@ -95,29 +104,29 @@ function Form() {
                 <IconX />
               </button>
             </div>
-            <div className="flex justify-between gap-20">
-              <div>
-                <h2 className="text-5xl font-normal mb-4">
+            <div className="flex flex-col lg:flex-row fle justify-between gap-5 lg:gap-20">
+              <div className="w-full lg:w-1/2">
+                <h2 className="text-3xl lg:text-5xl font-normal mb-4">
                   Tervetuloa lisäämään kalasaaliisi.
                 </h2>
-                <p className="mb-5">
+                <p className="mb-5 hidden md:block">
                   Kiitämme sinua kalasaaliisi lisäämisestä ja tärkeiden tietojen
                   jakamisesta kanssamme. Täytäthän lomakkeen huolellisesti ja
                   rehellisesti, jotta saamme mahdollisimman tarkan kuvan
                   saaliistasi ja voimme käyttää tietoja parhaalla mahdollisella
                   tavalla.
                 </p>
-                <h3 className="text-2xl">{title[page]}</h3>
+                <h3 className="text-xl lg:text-2xl">{title[page]}</h3>
                 <div>
                   <ProgressBar />
                 </div>
               </div>
-              <div>
+              <div className="w-full lg:w-1/2">
                 <FormInputs />
               </div>
             </div>
 
-            <div className="flex justify-end mt-5">
+            <div className="flex justify-end mt-10">
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -157,15 +166,6 @@ function Form() {
                   Lähetä
                 </button>
               </div>
-              {/* <div>
-                <button
-                  type="submit"
-                  className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
-                  onClick={(e) => handleCancel(e)}
-                >
-                  Peruuta
-                </button>
-              </div> */}
             </div>
           </div>
         )}

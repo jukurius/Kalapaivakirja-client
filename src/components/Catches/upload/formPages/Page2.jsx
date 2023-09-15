@@ -6,6 +6,7 @@ import useUploadContext from "../../../../hooks/useUploadContext";
 import axios from "../../../../api/axios";
 import weatherConditionsJSON from "../../../../data/weatherConditions.json";
 import { AppContext } from "../../../../AppContext";
+import { IconX } from "@tabler/icons-react";
 
 function Page2() {
   const { data, setData } = useUploadContext();
@@ -14,6 +15,15 @@ function Page2() {
   const [currentDatetime, setCurrentDatetime] = useState("");
   const weatherConditions = weatherConditionsJSON;
   const { openModal } = useContext(AppContext);
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const toggleDropdown = (index) => {
+    if (index === openDropdown) {
+      setOpenDropdown(null);
+    } else {
+      setOpenDropdown(index);
+    }
+  };
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -64,9 +74,10 @@ function Page2() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDatetime]);
 
+  console.log(openDropdown)
 
   return (
-    <div className="min-w-[600px]">
+    <div>
       <div className="mb-4">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -77,6 +88,8 @@ function Page2() {
             identifier="locationProvince"
             value={data}
             setValue={setData}
+            isOpen={openDropdown === 0}
+            onToggle={() => toggleDropdown(0)}
           />
         </div>
         {data?.locationProvince ? (
@@ -92,6 +105,8 @@ function Page2() {
               identifier="locationCity"
               value={data}
               setValue={setData}
+              isOpen={openDropdown === 1}
+              onToggle={() => toggleDropdown(1)}
             />
           </div>
         ) : null}
@@ -103,9 +118,24 @@ function Page2() {
             >
               Tarkka sijainti
             </label>
-            <button onClick={() => openModal()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Avaa kartta
-            </button>
+            <div className="flex gap-5">
+              <button
+                onClick={() => openModal()}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Avaa kartta
+              </button>
+              {data?.lat && (
+                <div className="flex border items-center justify-center px-4 gap-2 rounded-md bg-slate-50">
+                  <p>Tarkka sijainti lisätty.</p>
+                  <button
+                    onClick={() => setData({ ...data, lat: null, lng: null })}
+                  >
+                    <IconX />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         ) : null}
       </div>
@@ -137,6 +167,8 @@ function Page2() {
           identifier="weatherCondition"
           value={data}
           setValue={setData}
+          isOpen={openDropdown === 2}
+          onToggle={() => toggleDropdown(2)}
         />
       </div>
       <div className="mb-4">

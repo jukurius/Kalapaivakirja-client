@@ -11,6 +11,7 @@ import RequireAuth from "./components/reuseables/requireAuth";
 import UploadPost from "./pages/UploadPost";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
+import SingleUser from "./pages/SingleUser";
 import Statistics from "./pages/Statistics";
 import Menu from "./components/nav/Menu";
 import PersistLogin from "./components/reuseables/PersistLogin";
@@ -19,7 +20,7 @@ import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 import { AppContext } from "./AppContext";
 import Modal from "./components/reuseables/customModal";
-import GoogleMapShow from "./components/reuseables/GoogleMapShowLocation";
+import GoogleMapShow from "./components/reuseables/GoogleMapSetLocation";
 import { UploadContextProvider } from "./components/Catches/upload/context/UploadContext";
 
 function App() {
@@ -46,7 +47,6 @@ function App() {
               <Menu />
             </div>
           )}
-
           <div className="h-[calc(100vh-5rem)] w-full overflow-y-auto bg-custom-light-gray">
             <div className="">
               <AnimatePresence>
@@ -78,27 +78,28 @@ function App() {
 
   return (
     <UploadContextProvider>
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route element={<PersistLogin />}>
-          <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="notfound" element={<NotFound />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="tietosuojaseloste" element={<PrivacyPolicy />} />
-          {/* Private routes */}
-          <Route element={<RequireAuth />}>
-            <Route path="saaliit" element={<Catches />} />
-            <Route path="saaliit/:id" element={<CatchDetails />} />
-            <Route path="lisaa-saalis" element={<UploadPost />} />
-            <Route path="kayttajat" element={<Users />} />
-            <Route path="statistiikka" element={<Statistics />} />
-            <Route path="profiili" element={<Profile />} />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route element={<PersistLogin />}>
+            <Route index element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="notfound" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="tietosuojaseloste" element={<PrivacyPolicy />} />
+            {/* Private routes */}
+            <Route element={<RequireAuth />}>
+              <Route path="saaliit" element={<Catches />} />
+              <Route path="saaliit/:id" element={<CatchDetails />} />
+              <Route path="lisaa-saalis" element={<UploadPost />} />
+              <Route path="kayttajat" element={<Users />} />
+              <Route path="kayttajat/:username" element={<SingleUser />} />
+              <Route path="statistiikka" element={<Statistics />} />
+              <Route path="profiili" element={<Profile />} />
+            </Route>
           </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
     </UploadContextProvider>
   );
 }

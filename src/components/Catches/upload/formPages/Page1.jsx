@@ -7,8 +7,6 @@ import UploadDropdown from "../inputs/UploadDropdown";
 import UploadRadio from "../inputs/UploadRadio";
 import colorJSON from "../../../../data/colors.json";
 import fishingStyleJSON from "../../../../data/fishingStyle.json";
-// import { IconFish } from "@tabler/icons-react";
-// import { IconFishHook } from "@tabler/icons-react";
 
 function Page1() {
   const [speciesData, setSpeciesData] = useState([]);
@@ -16,6 +14,15 @@ function Page1() {
   const colorData = colorJSON;
   const fishinStylesData = fishingStyleJSON;
   const { data, setData } = useUploadContext();
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const toggleDropdown = (index) => {
+    if (index === openDropdown) {
+      setOpenDropdown(null);
+    } else {
+      setOpenDropdown(index);
+    }
+  };
 
   useEffect(() => {
     const fetchSpecies = async () => {
@@ -40,8 +47,10 @@ function Page1() {
     fetchLures();
   }, []);
 
+  console.log("open", openDropdown);
+
   return (
-    <div className="min-w-[600px]">
+    <div>
       <div className="mb-4">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -52,6 +61,8 @@ function Page1() {
             identifier="specie"
             value={data}
             setValue={setData}
+            isOpen={openDropdown === 0}
+            onToggle={() => toggleDropdown(0)}
           />
         </div>
         <div className="mb-4">
@@ -96,6 +107,8 @@ function Page1() {
           identifier="fishingStyle"
           value={data}
           setValue={setData}
+          isOpen={openDropdown === 1}
+          onToggle={() => toggleDropdown(1)}
         />
       </div>
       <div className="mb-4">
@@ -107,6 +120,8 @@ function Page1() {
           identifier="lure"
           value={data}
           setValue={setData}
+          isOpen={openDropdown === 2}
+          onToggle={() => toggleDropdown(2)}
         />
       </div>
       <div className="mb-4">
@@ -159,6 +174,8 @@ function Page1() {
                 identifier="lureColorOne"
                 value={data}
                 setValue={setData}
+                isOpen={openDropdown === 3}
+                onToggle={() => toggleDropdown(3)}
               />
             </div>
             <div className="mb-4">
@@ -170,6 +187,8 @@ function Page1() {
                 identifier="lureColorTwo"
                 value={data}
                 setValue={setData}
+                isOpen={openDropdown === 4}
+                onToggle={() => toggleDropdown(4)}
               />
             </div>
             <div className="mb-4">
@@ -181,6 +200,8 @@ function Page1() {
                 identifier="lureColorThree"
                 value={data}
                 setValue={setData}
+                isOpen={openDropdown === 5}
+                onToggle={() => toggleDropdown(5)}
               />
             </div>
           </div>
@@ -194,6 +215,8 @@ function Page1() {
               identifier="lureColorOne"
               value={data}
               setValue={setData}
+              isOpen={openDropdown === 6}
+              onToggle={() => toggleDropdown(6)}
             />
           </div>
         )}

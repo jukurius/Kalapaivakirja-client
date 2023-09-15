@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "value": "Satunnainen kalastaja"
+    },
+    {
+        "id": 2,
+        "value": "harrastuskalastaja"
+    },
+    {
+        "id": 3,
+        "value": "Aktiivikalastaja"
+    },
+    {
+        "id": 4,
+        "value": "Ammattikalastaja"
+    }
+]

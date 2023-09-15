@@ -12,6 +12,7 @@ const UploadContextProvider = ({ children }) => {
   const [data, setData] = useState({
     isMultiColor: 0,
     images: [],
+    is_private: null,
     specie: "",
     specieWeight: "",
     specieLength: "",
@@ -30,8 +31,41 @@ const UploadContextProvider = ({ children }) => {
     waterTemp: "",
     wind: "",
     catchDate: "",
-    locationId: 0
+    locationId: 0,
+    lat: null,
+    lng: null,
+    privacyPolicy: false
   });
+
+  const resetData = () => {
+    setData({
+      isMultiColor: 0,
+      images: [],
+      is_private: "",
+      specie: "",
+      specieWeight: "",
+      specieLength: "",
+      lure: "",
+      lureColorOne: "",
+      lureColorTwo: "",
+      lureColorThree: "",
+      lureLength: "",
+      depth: "",
+      locationProvince: "",
+      locationCity: "",
+      locationLake: "",
+      fishingStyle: "",
+      weatherCondition: "",
+      airTemp: "",
+      waterTemp: "",
+      wind: "",
+      catchDate: "",
+      locationId: 0,
+      lat: null,
+      lng: null,
+      privacyPolicy: false
+    })
+  }
 
   const requiredInputsForSubmit = {
     specie: data.specie,
@@ -45,6 +79,8 @@ const UploadContextProvider = ({ children }) => {
     images: data.images.length > 0 ? true : false,
     weatherCondition: data.weatherCondition,
     catchDate: data.catchDate,
+    privacyPolicy: data.privacyPolicy,
+    is_private: data.is_private
   };
 
   const requiredInputsPage1 = {
@@ -102,6 +138,7 @@ const UploadContextProvider = ({ children }) => {
         prevHide,
         nextHide,
         submitHide,
+        resetData
       }}
     >
       {children}

@@ -15,7 +15,7 @@ const Post = React.forwardRef(({ post }, ref) => {
             }}
         >
             <div className="p-5">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <h5 className="mb-2 text-xl font-bold tracking-tight text-white">
                     {post.species_name} {post.weight}kg
                 </h5>
                 <p className="mb-1 font-normal text-gray-200">{post.date}</p>

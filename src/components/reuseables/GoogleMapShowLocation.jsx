@@ -1,60 +1,53 @@
-import { useMemo, useEffect, useState } from "react";
+import { useMemo } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import axios from "axios";
-import useUploadContext from "../../hooks/useUploadContext";
 import PropTypes from "prop-types";
 
-const GoogleMapSelect = () => {
+const GoogleMapShowLocation = ({ lat, lng }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
-  const { data } = useUploadContext();
-  const [location, setLocation] = useState(null);
-
-  console.log("locationCity", data.locationCity);
-
-  useEffect(() => {
-    const fetchGeocode = async () => {
-      try {
-        const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${
-            data?.locationCity
-          }&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`
-        );
-        console.log(response.data);
-        setLocation(response.data.results[0].geometry.location);
-      } catch (error) {
-        console.error("Error fetching geolocation:", error);
-      }
-    };
-    fetchGeocode();
-  }, []);
+  const location = { lat: lat, lng: lng }; // TODO: Tänne tulee undefined selvitä
+  console.log(location);
 
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
-  return <Map location={location} />;
+  return <div>{lat && <Map location={location} />}</div>;
 };
 
 const Map = ({ location }) => {
   const containerStyle = {
     width: "100%",
     height: "100%",
+    borderRadius: "0 0.5rem 0.5rem 0.5rem",
   };
-  const center = useMemo(() => (location), [location]);
+  console.log(location);
+  const center = useMemo(() => location, [location]);
   return (
-    <div className="lg:w-[800px] lg:h-[620px]">
-      {location?.lat && (
-        <GoogleMap zoom={10} center={center} mapContainerStyle={containerStyle}>
-          <Marker position={center} zIndex={1200} />
-        </GoogleMap>
-      )}
+    <div>
+      <h4 className="bg-white ps-2 pe-10 rounded-t-lg py-2 inline-block text-gray-500 text-xs tracking-widest">TARKKA SIJAINTI</h4>
+      <div className="lg:w-[1216px] lg:h-[620px]">
+        {location?.lat && location?.lng && (
+          <GoogleMap
+            zoom={10}
+            center={center}
+            mapContainerStyle={containerStyle}
+          >
+            <Marker position={center} />
+          </GoogleMap>
+        )}
+      </div>
     </div>
   );
 };
 
-Map.propTypes = {
-  location: PropTypes.object.isRequired,
+GoogleMapShowLocation.propTypes = {
+  lat: PropTypes.number,
+  lng: PropTypes.number,
 };
 
-export default GoogleMapSelect;
+Map.propTypes = {
+  location: PropTypes.object,
+};
+
+export default GoogleMapShowLocation;
