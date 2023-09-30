@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import PropTypes from "prop-types";
+import "./slider.css";
 
 const Slider = ({ images }) => {
   const imageArr = images.map((item) => {
@@ -27,15 +28,10 @@ const Slider = ({ images }) => {
       {imageArr.map((image, index) => (
         <SwiperSlide key={index}>
           <div
-            className="flex justify-center items-center object-cover w-full rounded-lg"
-            // style={{
-            //   backgroundImage: `url("${image}")`,
-            //   backgroundSize: "cover",
-            //   backgroundPosition: "center",
-            // }}
+            className="flex justify-center items-center object-cover max-h-[670px] w-full slider-container rounded-md"
           >
             <img
-              className="object-cover rounded-lg shadow-lg"
+              className="object-cover bg-center rounded-lg shadow-lg"
               src={image}
               alt={`Slide ${index}`}
             />

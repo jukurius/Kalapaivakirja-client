@@ -15,7 +15,7 @@ function RenderCards(props) {
         }}
       >
         <div className="p-5">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">
             {item.species_name} {item.weight}kg
           </h5>
           <p className="mb-1 font-normal text-gray-200">{item.date}</p>

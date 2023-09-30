@@ -10,6 +10,7 @@ import { IconFishChristianity } from "@tabler/icons-react";
 import { IconUsersGroup } from "@tabler/icons-react";
 import { IconUpload } from "@tabler/icons-react";
 import { IconCalendar } from "@tabler/icons-react";
+import { IconChartBar } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../../hooks/useLogout"
 
@@ -29,7 +30,7 @@ const Menu = () => {
         <div className="title font-semibold text-3xl pt-5">Kalapäiväkirja</div>
       </div>
       <div className="item mt-20">
-        <div className="text-gray-400 mb-6 text-lg px-4">MENU</div>
+        <div className="text-gray-400 mb-4 text-lg px-4">VALIKKO</div>
         <div className="links flex flex-col gap-2">
           <Link
             className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
@@ -56,13 +57,13 @@ const Menu = () => {
             className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
             to="/statistiikka"
           >
-            <IconHome size={20} />
+            <IconChartBar size={20} />
             Statistiikka
           </Link>
         </div>
         {auth?.user && (
           <div className="links flex flex-col gap-2">
-            <div className="text-gray-400 mb-6 text-lg px-4 mt-10">
+            <div className="text-gray-400 mb-2 text-lg px-4 mt-8">
               {auth?.user.toUpperCase()}
             </div>
             <div className="links flex flex-col gap-2"></div>
@@ -75,7 +76,7 @@ const Menu = () => {
             </Link>
             <Link
               className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
-              to="/"
+              to={`kayttajat/${auth?.user}/saaliit`}
             >
               <IconFishChristianity size={20} />
               Omat kalasaaliit

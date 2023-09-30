@@ -58,9 +58,6 @@ const Example1 = () => {
         {content}
       </div>
       {isLoading && <p className="center">Loading More Posts...</p>}
-      <p className="center">
-        <a href="#top">Back to Top</a>
-      </p>
     </div>
   );
 };

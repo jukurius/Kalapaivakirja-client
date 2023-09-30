@@ -22,6 +22,7 @@ import { AppContext } from "./AppContext";
 import Modal from "./components/reuseables/customModal";
 import GoogleMapShow from "./components/reuseables/GoogleMapSetLocation";
 import { UploadContextProvider } from "./components/Catches/upload/context/UploadContext";
+import OwnCatches from "./pages/OwnCatches";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -91,6 +92,7 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path="saaliit" element={<Catches />} />
               <Route path="saaliit/:id" element={<CatchDetails />} />
+              <Route path="kayttajat/:username/saaliit" element={<OwnCatches />} />
               <Route path="lisaa-saalis" element={<UploadPost />} />
               <Route path="kayttajat" element={<Users />} />
               <Route path="kayttajat/:username" element={<SingleUser />} />

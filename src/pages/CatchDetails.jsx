@@ -102,7 +102,7 @@ function CatchDetails() {
             </CatchDetailBox>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="col-span-2">
+            <div className="col-span-2 shadow-lg rounded-md">
               {post[0]?.images?.length && (
                 <Slider images={post[0]?.images?.length && post[0].images} />
               )}
@@ -112,7 +112,7 @@ function CatchDetails() {
                 header={"KALASTAJA"}
                 icon={<IconUser color="blue" size={32} />}
               >
-                <Link className="text-blue-800 font-bold text-md" to="/">
+                <Link className="text-blue-800 font-bold text-md" to={`/kayttajat/${post[0]?.username}`}>
                   {post[0]?.username}
                 </Link>
               </CatchDetailBox>
