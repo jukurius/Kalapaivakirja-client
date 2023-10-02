@@ -74,8 +74,6 @@ function Page2() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDatetime]);
 
-  console.log(openDropdown)
-
   return (
     <div>
       <div className="mb-4">

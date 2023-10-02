@@ -5,11 +5,6 @@ import PropTypes from "prop-types";
 
 const SpeciesFilter = (props) => {
   const [species, setSpecies] = useState({});
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const toggleDropdown = () => {
-  //   setIsOpen(!isOpen);
-  // };
 
   const handleOptionChange = (optionValue) => {
     if (props.filterOptions[0]?.filterArr?.includes(optionValue)) {
@@ -47,6 +42,8 @@ const SpeciesFilter = (props) => {
     };
     fetchSpecies();
   }, []);
+
+  console.log(typeof species)
 
   return (
     <div className="relative inline-block text-left group">

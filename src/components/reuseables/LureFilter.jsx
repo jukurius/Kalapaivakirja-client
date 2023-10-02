@@ -5,11 +5,6 @@ import PropTypes from "prop-types";
 
 const LureFilter = (props) => {
   const [lures, setLures] = useState({});
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const toggleDropdown = () => {
-  //   setIsOpen(!isOpen);
-  // };
 
   const handleOptionChange = (optionValue) => {
     if (props.filterOptions[2]?.filterArr?.includes(optionValue)) {

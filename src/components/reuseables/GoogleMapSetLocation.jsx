@@ -26,7 +26,6 @@ const GoogleMapSelect = () => {
             data?.locationCity
           }&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`
         );
-        console.log(response.data);
         setLocation(response.data.results[0].geometry.location);
       } catch (error) {
         console.error("Error fetching geolocation:", error);
@@ -61,7 +60,6 @@ const Map = ({ location, setLocation }) => {
   const handleClick = (ev) => {
     setLocation({ ...location, lat: ev.latLng.lat(), lng: ev.latLng.lng() });
   };
-  console.log(location);
   const center = useMemo(() => location, [location]);
   return (
     <div className="w-full h-96 lg:w-[800px] lg:h-[620px]">

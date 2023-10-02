@@ -47,8 +47,6 @@ function Page1() {
     fetchLures();
   }, []);
 
-  console.log("open", openDropdown);
-
   return (
     <div>
       <div className="mb-4">

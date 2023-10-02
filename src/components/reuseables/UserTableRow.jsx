@@ -8,10 +8,9 @@ const UserTableRow = ({ users }) => {
     navigate(`/kayttajat/${username}`);
   };
   const tableRows = users.map((user) => {
-    console.log(user);
     return (
       <tr
-        key={user.user_id}
+        key={user.id}
         onClick={() => handleRowClick(user.username)}
         className="bg-white border-b hover:bg-gray-50 cursor-pointer"
       >

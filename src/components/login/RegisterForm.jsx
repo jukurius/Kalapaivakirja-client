@@ -31,8 +31,6 @@ const RegisterForm = () => {
       setOpenDropdown(index);
     }
   };
-  console.log(activity.activity);
-  console.log(fishingMethod.method);
 
   //Errorhandling
   const [userError, setUserError] = useState("");
@@ -79,8 +77,7 @@ const RegisterForm = () => {
         activity: activity.activity,
         method: fishingMethod.method,
       };
-      const res = await axios.post("http://localhost:3000/register", usrObject);
-      console.log("Registration successful:", res);
+      await axios.post("http://localhost:3000/register", usrObject);
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
@@ -151,7 +148,6 @@ const RegisterForm = () => {
   };
 
   const handleCheckboxChange = (e) => {
-    console.log("first", e.target.checked);
     setPrivacyCheckbox(e.target.checked);
   };
 

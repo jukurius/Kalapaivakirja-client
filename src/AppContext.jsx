@@ -25,8 +25,7 @@ const AppContextProvider = ({ children }) => {
 
     const handleLogout = async () => {
       try {
-        const res = await axios.get(LOGOUT_URL);
-        console.log("Login succesful:", res);
+        await axios.get(LOGOUT_URL);
         setAuth({});
       } catch (error) {
         console.error("Login failed:", error);

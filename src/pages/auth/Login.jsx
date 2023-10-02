@@ -1,17 +1,7 @@
-import LoginForm from '../../components/login/LoginForm'
-import { motion } from 'framer-motion';
+import LoginForm from "../../components/login/LoginForm";
 
 function Login() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4 }}
-    >
-      <LoginForm />
-    </motion.div>
-  )
+  return <LoginForm />;
 }
 
-export default Login
+export default Login;

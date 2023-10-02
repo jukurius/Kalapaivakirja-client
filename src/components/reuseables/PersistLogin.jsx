@@ -33,7 +33,6 @@ const PersistLogin = () => {
   //     console.log(`isLoading: ${isLoading}`)
   //     console.log(`aT: ${JSON.stringify(auth?.accessToken)}`)
   // }, [isLoading])
-  console.log(isLoading);
   return (
     <>{!isLogged ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>
   );

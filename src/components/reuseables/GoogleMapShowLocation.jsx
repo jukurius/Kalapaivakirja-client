@@ -7,7 +7,6 @@ const GoogleMapShowLocation = ({ lat, lng }) => {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
   const location = { lat: lat, lng: lng }; // TODO: Tänne tulee undefined selvitä
-  console.log(location);
 
   if (!isLoaded) {
     return <div>Loading...</div>;
@@ -21,7 +20,6 @@ const Map = ({ location }) => {
     height: "100%",
     borderRadius: "0 0.5rem 0.5rem 0.5rem",
   };
-  console.log(location);
   const center = useMemo(() => location, [location]);
   return (
     <div>

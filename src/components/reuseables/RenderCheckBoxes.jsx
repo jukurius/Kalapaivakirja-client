@@ -31,7 +31,7 @@ function RenderCheckBoxes(props) {
 }
 
 RenderCheckBoxes.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
   selectedOptions: PropTypes.object.isRequired,
   handleOptionChange: PropTypes.func.isRequired,
 };

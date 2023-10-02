@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import ValidationComponent from "../reuseables/InputWithValidation";
-import { notify } from "../reuseables/NotificationService";
 const LOGIN_URL = "/login";
 
 const LoginPage = () => {
@@ -35,7 +34,6 @@ const LoginPage = () => {
       setEmail("");
       setPassword("");
       navigate("/");
-      notify(`Tervetuloa ${user}`, "success");
     } catch (err) {
       if (!err?.response) {
         console.log(err);

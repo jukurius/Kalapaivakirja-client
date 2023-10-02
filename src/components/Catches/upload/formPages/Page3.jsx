@@ -69,7 +69,6 @@ const Page3 = () => {
   };
 
   const handleCheckboxChange = (e) => {
-    console.log("first", e.target.checked);
     setData({ ...data, privacyPolicy: e.target.checked });
   };
 

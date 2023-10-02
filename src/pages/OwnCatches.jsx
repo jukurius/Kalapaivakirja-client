@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import RenderCards from "../components/reuseables/RenderCards";
+import PropTypes from 'prop-types';
 
-const OwnCatches = () => {
-  const { username } = useParams();
+const OwnCatches = ({ user }) => {
+  // const { username } = useParams();
   const [posts, setPosts] = useState([]);
   const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axiosPrivate.get(`/catches?username=${username}`);
+      const response = await axiosPrivate.get(`/catches?username=${user}`);
       setPosts(response.data);
     };
     fetchPosts();
@@ -21,5 +22,10 @@ const OwnCatches = () => {
     </section>
   );
 };
+
+OwnCatches.propTypes = {
+  user: PropTypes.string
+};
+
 
 export default OwnCatches;

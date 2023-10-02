@@ -14,7 +14,6 @@ const ValidationComponent = ({ fieldName, data, setData, actionType, type, isVal
   
     const handleBlur = () => {
       const newDataIsValid = validateData(data);
-      console.log("first", newDataIsValid);
       setIsValid(newDataIsValid);
     };
 
@@ -58,7 +57,6 @@ const ValidationComponent = ({ fieldName, data, setData, actionType, type, isVal
     const emailRegex = /^[\w.-]+@[\w.-]+\.\w+$/;
     if (!email) { return false; }
     else {
-      console.log("regex:", emailRegex.test(email))
       return emailRegex.test(email);
     }
   }

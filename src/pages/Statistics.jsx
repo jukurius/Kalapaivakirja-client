@@ -32,7 +32,6 @@ const Statistics = () => {
       const response = await axiosPrivate.get(
         `/analytics?specie=${queryParam?.specie}`
       );
-      console.log(response.data);
       setWeather(response.data);
     };
     fetchWeatherData();
@@ -44,18 +43,16 @@ const Statistics = () => {
     for (const key in obj) {
       if (Object.hasOwnProperty.call(obj, key)) {
         const element = obj[key];
-        console.log(element);
         if (element.length > 0) {
           flag = true;
         }
       }
     }
-    console.log(flag);
     return flag;
   };
 
   return (
-    <div className="container mx-auto px-4 mt-10">
+    <div className="container mx-auto px-4 mt-10 sm:max-w-md md:max-w-none xl:max-w-[1600px]">
       <div className="flex justify-end">
         <div className="w-96 mb-20">
           <UploadDrodown
@@ -69,9 +66,9 @@ const Statistics = () => {
         </div>
       </div>
       {checkIfNoData() ? (
-        <div className="grid grid-cols-10 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-6 xl:grid-cols-10 gap-8">
           {weather.weather?.conditions?.length > 0 && (
-            <div className="bg-white p-4 rounded-md shadow-lg col-span-2">
+            <div className="bg-white p-4 rounded-md shadow-lg md:col-span-2 xl:col-span-3 custom-breakpoint:col-span-2">
               <h2 className="text-gray-500 text-xs tracking-widest mb-2">
                 Keliolosuhteet
               </h2>
@@ -79,7 +76,7 @@ const Statistics = () => {
             </div>
           )}
           {weather.weather?.airTemps.length > 0 && (
-            <div className="bg-white p-4 rounded-md shadow-lg col-span-4">
+            <div className="bg-white p-4 rounded-md shadow-lg md:col-span-4 xl:col-span-7 custom-breakpoint:col-span-4">
               <h2 className="text-gray-500 text-xs tracking-widest mb-2">
                 Ilman lämpötilat
               </h2>
@@ -87,7 +84,7 @@ const Statistics = () => {
             </div>
           )}
           {weather.weather?.waterTemps.length > 0 && (
-            <div className="bg-white p-4 rounded-md shadow-lg col-span-4">
+            <div className="bg-white p-4 rounded-md shadow-lg md:col-span-3 xl:col-span-7 custom-breakpoint:col-span-4">
               <h2 className="text-gray-500 text-xs tracking-widest mb-2">
                 Veden lämpötilat
               </h2>
@@ -95,7 +92,7 @@ const Statistics = () => {
             </div>
           )}
           {weather.weather?.windSpeeds.length > 0 && (
-            <div className="bg-white p-4 rounded-md shadow-lg col-span-3">
+            <div className="bg-white p-4 rounded-md shadow-lg md:col-span-3 xl:col-span-7 custom-breakpoint:col-span-4 xl:order-2 custom-breakpoint:order-none">
               <h2 className="text-gray-500 text-xs tracking-widest mb-2">
                 Tuulen nopeudet
               </h2>
@@ -103,7 +100,7 @@ const Statistics = () => {
             </div>
           )}
           {weather.weather?.fishingMethods?.length > 0 && (
-            <div className="bg-white p-4 rounded-md shadow-lg col-span-2">
+            <div className="bg-white p-4 rounded-md shadow-lg md:col-span-2 xl:col-span-3 custom-breakpoint:col-span-3 ">
               <h2 className="text-gray-500 text-xs tracking-widest mb-2">
                 Kalastustavat
               </h2>
@@ -111,7 +108,7 @@ const Statistics = () => {
             </div>
           )}
           {weather.weather?.singleColoredLures?.length > 0 && (
-            <div className="bg-white p-4 rounded-md shadow-lg col-span-2">
+            <div className="bg-white p-4 rounded-md shadow-lg md:col-span-2 xl:col-span-3">
               <h2 className="text-gray-500 text-xs tracking-widest mb-2">
                 Vieheenväritykset
               </h2>
@@ -120,7 +117,7 @@ const Statistics = () => {
           )}
         </div>
       ) : Object.keys(queryParam).length === 0 ? (
-        <div>
+        <div className="flex flex-col items-center">
           <h1>Statistiikka</h1>
           <p>Valitse sivuston yläreunasta kalalaji, jonka tilastoja haluaisit tutkia</p>
         </div>

@@ -30,7 +30,6 @@ function CatchDetails() {
     const controller = new AbortController();
     const fetchComments = async (postId) => {
       const response = await axiosPrivate.get(`/comments?catchId=${postId}`);
-      console.log(response.data);
       setComments(response.data);
     };
     const getPost = async () => {
@@ -56,7 +55,6 @@ function CatchDetails() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [insertFlag]);
-  console.log(post[0]?.lat);
 
   const insertNewComment = async (catchId, content) => {
     try {

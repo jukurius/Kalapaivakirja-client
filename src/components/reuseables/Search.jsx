@@ -5,9 +5,6 @@ function Search() {
     const [query, setQuery] = useState('');
 
     const handleSearch = () => {
-      // Implement your search logic here
-      console.log('Searching for:', query);
-      // You can send the query to a search API or perform the search operation here.
     };
   
     const handleChange = (event) => {

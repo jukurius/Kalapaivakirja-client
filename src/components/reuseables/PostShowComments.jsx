@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { IconQuestionMark } from "@tabler/icons-react";
 
 const PostShowComments = ({ comments }) => {
-  console.log(!comments.length);
   if (!comments.length) {
     return (
       <div className="p-4">

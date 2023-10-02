@@ -1,18 +1,11 @@
-import PostsInfinite from '../components/Catches/PostsInfinite'
-import { motion } from 'framer-motion';
+import PostsInfinite from "../components/Catches/PostsInfinite";
 
 function Catches() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4 }}
-      className='container mx-auto px-5'
-    >
+    <div className="container mx-auto">
       <PostsInfinite />
-    </motion.div>
-  )
+    </div>
+  );
 }
 
-export default Catches
+export default Catches;

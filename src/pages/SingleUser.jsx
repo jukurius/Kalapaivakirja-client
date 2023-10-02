@@ -24,7 +24,6 @@ const SingleUser = () => {
     fetchUserPosts();
   }, []);
 
-  console.log(user);
   return (
     <div className="container max-w-7xl mx-auto mt-6 p-5">
       {user.length > 0 && (

@@ -84,7 +84,7 @@ const FilterBar = (props) => {
                     setFilterOptions={props.setFilterOptions}
                   />
                   <LureFilter
-                    filterOptions={props.filterOptions}
+                    filterOptions={props.filterOptions} 
                     setFilterOptions={props.setFilterOptions}
                   />
                   <LocationFilter

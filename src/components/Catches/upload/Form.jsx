@@ -42,8 +42,6 @@ function Form() {
       }
       return acc;
     }, {});
-
-    console.log(JSON.stringify(filteredObject));
     if (filteredObject.is_private === "Julkinen") {
       filteredObject.is_private = 0;
     } else {
@@ -55,11 +53,10 @@ function Form() {
     const uploadCatch = async () => {
       setIsLoading(true);
       try {
-        const response = await axiosPrivate.post(
+        await axiosPrivate.post(
           "/upload/catch",
           JSON.stringify(filteredObject)
         );
-        console.log(response);
         setIsSuccess(true);
         resetData();
         setPage(0);

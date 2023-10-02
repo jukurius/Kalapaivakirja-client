@@ -11,14 +11,13 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         const res = await axiosPrivate(ENDPOINT);
-        console.log(res.data);
         setUsers(res.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchUsers();
-  }, []);
+  }, []); 
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg container mx-auto mt-20">
