@@ -30,8 +30,8 @@ const Menu = () => {
   return (
     <>
       {isOpen ? (
-        <nav className="absolute z-50 h-[calc(100vh-5rem)] w-80 overflow-y-auto menu-container lg:static text-white bg-[#1C2434] px-5 py-5">
-          <div className="flex justify-end">
+        <nav className="absolute lg:static z-50 h-[calc(100vh-5rem)] overflow-y-auto lg:w-80 text-white bg-[#1C2434] px-5 py-5">
+          <div className="flex justify-end mt-2 me-2">
             <button onClick={() => setIsOpen(!isOpen)}>
               <IconX />
             </button>
@@ -47,7 +47,11 @@ const Menu = () => {
               <NavLink
                 className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
                 to="/"
-                style={({ isActive }) => (isActive ? {backgroundColor: "#4a5568", borderRadius: "0.25rem"} : {})}
+                style={({ isActive }) =>
+                  isActive
+                    ? { backgroundColor: "#4a5568", borderRadius: "0.25rem" }
+                    : {}
+                }
               >
                 <IconHome size={20} />
                 Koti
@@ -55,7 +59,11 @@ const Menu = () => {
               <NavLink
                 className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
                 to="/saaliit"
-                style={({ isActive }) => (isActive ? {backgroundColor: "#4a5568", borderRadius: "0.25rem"} : {})}
+                style={({ isActive }) =>
+                  isActive
+                    ? { backgroundColor: "#4a5568", borderRadius: "0.25rem" }
+                    : {}
+                }
               >
                 <IconFishHook size={20} />
                 Kalasaaliit
@@ -63,7 +71,11 @@ const Menu = () => {
               <NavLink
                 className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
                 to="/kayttajat"
-                style={({ isActive }) => (isActive ? {backgroundColor: "#4a5568", borderRadius: "0.25rem"} : {})}
+                style={({ isActive }) =>
+                  isActive
+                    ? { backgroundColor: "#4a5568", borderRadius: "0.25rem" }
+                    : {}
+                }
               >
                 <IconUsersGroup size={20} />
                 Käyttäjät
@@ -71,7 +83,11 @@ const Menu = () => {
               <NavLink
                 className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
                 to="/statistiikka"
-                style={({ isActive }) => (isActive ? {backgroundColor: "#4a5568", borderRadius: "0.25rem"} : {})}
+                style={({ isActive }) =>
+                  isActive
+                    ? { backgroundColor: "#4a5568", borderRadius: "0.25rem" }
+                    : {}
+                }
               >
                 <IconChartBar size={20} />
                 Statistiikka
@@ -86,7 +102,11 @@ const Menu = () => {
                 <NavLink
                   className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
                   to="/oma-tili"
-                  style={({ isActive }) => (isActive ? {backgroundColor: "#4a5568", borderRadius: "0.25rem"} : {})}
+                  style={({ isActive }) =>
+                    isActive
+                      ? { backgroundColor: "#4a5568", borderRadius: "0.25rem" }
+                      : {}
+                  }
                 >
                   <IconUser size={20} />
                   Oma tili
@@ -94,7 +114,11 @@ const Menu = () => {
                 <NavLink
                   className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
                   to="/saaliini"
-                  style={({ isActive }) => (isActive ? {backgroundColor: "#4a5568", borderRadius: "0.25rem"} : {})}
+                  style={({ isActive }) =>
+                    isActive
+                      ? { backgroundColor: "#4a5568", borderRadius: "0.25rem" }
+                      : {}
+                  }
                 >
                   <IconFishChristianity size={20} />
                   Omat kalasaaliit
@@ -102,7 +126,11 @@ const Menu = () => {
                 <NavLink
                   className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
                   to="/lisaa-saalis"
-                  style={({ isActive }) => (isActive ? {backgroundColor: "#4a5568", borderRadius: "0.25rem"} : {})}
+                  style={({ isActive }) =>
+                    isActive
+                      ? { backgroundColor: "#4a5568", borderRadius: "0.25rem" }
+                      : {}
+                  }
                 >
                   <IconUpload size={20} />
                   Lisää saalis
@@ -110,7 +138,11 @@ const Menu = () => {
                 <NavLink
                   className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
                   to="/kalenteri"
-                  style={({ isActive }) => (isActive ? {backgroundColor: "#4a5568", borderRadius: "0.25rem"} : {})}
+                  style={({ isActive }) =>
+                    isActive
+                      ? { backgroundColor: "#4a5568", borderRadius: "0.25rem" }
+                      : {}
+                  }
                 >
                   <IconCalendar size={20} />
                   Kalenteri
@@ -118,7 +150,11 @@ const Menu = () => {
                 <NavLink
                   className="text-md font-medium flex gap-2 text-gray-200 items-center hover:bg-gray-700 py-2 px-4 hover:rounded"
                   to="/asetukset"
-                  style={({ isActive }) => (isActive ? {backgroundColor: "#4a5568", borderRadius: "0.25rem"} : {})}
+                  style={({ isActive }) =>
+                    isActive
+                      ? { backgroundColor: "#4a5568", borderRadius: "0.25rem" }
+                      : {}
+                  }
                 >
                   <IconSettings size={20} />
                   Asetukset
@@ -136,7 +172,10 @@ const Menu = () => {
         </nav>
       ) : (
         <div className="absolute z-50 top-24 left-4 bg-[#F1F5F9]">
-          <button className="bg-white shadow-lg rounded-sm p-2" onClick={() => setIsOpen(!isOpen)}>
+          <button
+            className="bg-white shadow-lg rounded-sm p-2"
+            onClick={() => setIsOpen(!isOpen)}
+          >
             <IconMenu2 size={32} color="#4B5563" />
           </button>
         </div>

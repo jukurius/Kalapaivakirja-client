@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { IconQuestionMark } from "@tabler/icons-react";
 import RenderCards from "../components/reuseables/RenderCards";
+import { AppContext } from "../AppContext";
 
 const SingleUser = () => {
   const [user, setUser] = useState([]);
+  const { auth } = useContext(AppContext);
   const [usersPosts, setUsersPosts] = useState([]);
   const { username } = useParams();
   const axiosPrivate = useAxiosPrivate();
@@ -13,12 +15,14 @@ const SingleUser = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const response = await axiosPrivate.get(`/user?username=${username}`);
+      const userCheck = username || auth.user;
+      const response = await axiosPrivate.get(`/user?username=${userCheck}`);
       setUser(response.data);
     };
     fetchUserData();
     const fetchUserPosts = async () => {
-      const response = await axiosPrivate.get(`/catches?username=${username}`);
+      const userCheck = username || auth.user;
+      const response = await axiosPrivate.get(`/catches?username=${userCheck}`);
       setUsersPosts(response.data);
     };
     fetchUserPosts();
